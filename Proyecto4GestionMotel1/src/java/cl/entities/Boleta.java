@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package cl.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +45,7 @@ public class Boleta implements Serializable {
     @Column(name = "precio_con_iva")
     private Integer precioConIva;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "boletaidboleta")
-    private Collection<RegistrosVentas> registrosVentasCollection;
+    private List<RegistrosVentas> registrosVentasList;
     @JoinColumn(name = "metodo_pago_id_metodo_pago", referencedColumnName = "id_metodo_pago")
     @ManyToOne(optional = false)
     private MetodoPago metodoPagoIdMetodoPago;
@@ -74,12 +74,12 @@ public class Boleta implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RegistrosVentas> getRegistrosVentasCollection() {
-        return registrosVentasCollection;
+    public List<RegistrosVentas> getRegistrosVentasList() {
+        return registrosVentasList;
     }
 
-    public void setRegistrosVentasCollection(Collection<RegistrosVentas> registrosVentasCollection) {
-        this.registrosVentasCollection = registrosVentasCollection;
+    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
+        this.registrosVentasList = registrosVentasList;
     }
 
     public MetodoPago getMetodoPagoIdMetodoPago() {
@@ -112,7 +112,7 @@ public class Boleta implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Boleta[ idBoleta=" + idBoleta + " ]";
+        return "cl.entities.Boleta[ idBoleta=" + idBoleta + " ]";
     }
     
 }

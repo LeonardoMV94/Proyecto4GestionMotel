@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package cl.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,7 +57,7 @@ public class Cliente implements Serializable {
     @Column(name = "fecha_nacimiento")
     private String fechaNacimiento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienterutcliente")
-    private Collection<RegistrosVentas> registrosVentasCollection;
+    private List<RegistrosVentas> registrosVentasList;
 
     public Cliente() {
     }
@@ -107,12 +107,12 @@ public class Cliente implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RegistrosVentas> getRegistrosVentasCollection() {
-        return registrosVentasCollection;
+    public List<RegistrosVentas> getRegistrosVentasList() {
+        return registrosVentasList;
     }
 
-    public void setRegistrosVentasCollection(Collection<RegistrosVentas> registrosVentasCollection) {
-        this.registrosVentasCollection = registrosVentasCollection;
+    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
+        this.registrosVentasList = registrosVentasList;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Cliente[ rutCliente=" + rutCliente + " ]";
+        return "cl.entities.Cliente[ rutCliente=" + rutCliente + " ]";
     }
     
 }

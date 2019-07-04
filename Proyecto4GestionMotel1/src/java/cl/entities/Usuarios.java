@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package cl.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuarios.findByApellidoPaterno", query = "SELECT u FROM Usuarios u WHERE u.apellidoPaterno = :apellidoPaterno")
     , @NamedQuery(name = "Usuarios.findByApellidoMaterno", query = "SELECT u FROM Usuarios u WHERE u.apellidoMaterno = :apellidoMaterno")
-    , @NamedQuery(name = "Usuarios.findByTipoUsuario", query = "SELECT u FROM Usuarios u WHERE u.tipoUsuario = :tipoUsuario")})
+    , @NamedQuery(name = "Usuarios.findByTipoUsuario", query = "SELECT u FROM Usuarios u WHERE u.tipoUsuario = :tipoUsuario")
+    , @NamedQuery(name = "Usuarios.findByClave", query = "SELECT u FROM Usuarios u WHERE u.clave = :clave")
+    , @NamedQuery(name = "Usuarios.findByCorreo", query = "SELECT u FROM Usuarios u WHERE u.correo = :correo")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,8 +57,14 @@ public class Usuarios implements Serializable {
     @Size(max = 20)
     @Column(name = "tipo_usuario")
     private String tipoUsuario;
+    @Size(max = 45)
+    @Column(name = "clave")
+    private String clave;
+    @Size(max = 45)
+    @Column(name = "correo")
+    private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosrutusuario")
-    private Collection<RegistrosVentas> registrosVentasCollection;
+    private List<RegistrosVentas> registrosVentasList;
 
     public Usuarios() {
     }
@@ -105,13 +113,29 @@ public class Usuarios implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
 
-    @XmlTransient
-    public Collection<RegistrosVentas> getRegistrosVentasCollection() {
-        return registrosVentasCollection;
+    public String getClave() {
+        return clave;
     }
 
-    public void setRegistrosVentasCollection(Collection<RegistrosVentas> registrosVentasCollection) {
-        this.registrosVentasCollection = registrosVentasCollection;
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    @XmlTransient
+    public List<RegistrosVentas> getRegistrosVentasList() {
+        return registrosVentasList;
+    }
+
+    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
+        this.registrosVentasList = registrosVentasList;
     }
 
     @Override
@@ -136,7 +160,7 @@ public class Usuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Usuarios[ rutUsuario=" + rutUsuario + " ]";
+        return "cl.entities.Usuarios[ rutUsuario=" + rutUsuario + " ]";
     }
     
 }

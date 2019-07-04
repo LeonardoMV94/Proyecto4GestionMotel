@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package cl.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +45,7 @@ public class Habitacion implements Serializable {
     @Column(name = "estado")
     private Short estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitacionidhabitacion")
-    private Collection<RegistrosVentas> registrosVentasCollection;
+    private List<RegistrosVentas> registrosVentasList;
     @JoinColumn(name = "tipo_habitacion_id_tipo_habitacion", referencedColumnName = "id_tipo_habitacion")
     @ManyToOne(optional = false)
     private TipoHabitacion tipoHabitacionIdTipoHabitacion;
@@ -74,12 +74,12 @@ public class Habitacion implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RegistrosVentas> getRegistrosVentasCollection() {
-        return registrosVentasCollection;
+    public List<RegistrosVentas> getRegistrosVentasList() {
+        return registrosVentasList;
     }
 
-    public void setRegistrosVentasCollection(Collection<RegistrosVentas> registrosVentasCollection) {
-        this.registrosVentasCollection = registrosVentasCollection;
+    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
+        this.registrosVentasList = registrosVentasList;
     }
 
     public TipoHabitacion getTipoHabitacionIdTipoHabitacion() {
@@ -112,7 +112,7 @@ public class Habitacion implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Habitacion[ idHabitacion=" + idHabitacion + " ]";
+        return "cl.entities.Habitacion[ idHabitacion=" + idHabitacion + " ]";
     }
     
 }

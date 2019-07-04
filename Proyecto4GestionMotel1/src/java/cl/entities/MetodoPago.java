@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package cl.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +45,7 @@ public class MetodoPago implements Serializable {
     @Column(name = "descripcion_metodo_pago")
     private String descripcionMetodoPago;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "metodoPagoIdMetodoPago")
-    private Collection<Boleta> boletaCollection;
+    private List<Boleta> boletaList;
 
     public MetodoPago() {
     }
@@ -71,12 +71,12 @@ public class MetodoPago implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Boleta> getBoletaCollection() {
-        return boletaCollection;
+    public List<Boleta> getBoletaList() {
+        return boletaList;
     }
 
-    public void setBoletaCollection(Collection<Boleta> boletaCollection) {
-        this.boletaCollection = boletaCollection;
+    public void setBoletaList(List<Boleta> boletaList) {
+        this.boletaList = boletaList;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MetodoPago implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.MetodoPago[ idMetodoPago=" + idMetodoPago + " ]";
+        return "cl.entities.MetodoPago[ idMetodoPago=" + idMetodoPago + " ]";
     }
     
 }

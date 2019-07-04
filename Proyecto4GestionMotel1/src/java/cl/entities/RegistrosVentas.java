@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package cl.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "RegistrosVentas.findAll", query = "SELECT r FROM RegistrosVentas r")
     , @NamedQuery(name = "RegistrosVentas.findByIdRegistro", query = "SELECT r FROM RegistrosVentas r WHERE r.idRegistro = :idRegistro")
-    , @NamedQuery(name = "RegistrosVentas.findByHoraEntrada", query = "SELECT r FROM RegistrosVentas r WHERE r.horaEntrada = :horaEntrada")})
+    , @NamedQuery(name = "RegistrosVentas.findByHoraEntrada", query = "SELECT r FROM RegistrosVentas r WHERE r.horaEntrada = :horaEntrada")
+    , @NamedQuery(name = "RegistrosVentas.findByHoraSalida", query = "SELECT r FROM RegistrosVentas r WHERE r.horaSalida = :horaSalida")})
 public class RegistrosVentas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +45,9 @@ public class RegistrosVentas implements Serializable {
     @Column(name = "hora_entrada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaEntrada;
+    @Column(name = "hora_salida")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horaSalida;
     @JoinColumn(name = "Boleta_id_boleta", referencedColumnName = "id_boleta")
     @ManyToOne(optional = false)
     private Boleta boletaidboleta;
@@ -78,6 +82,14 @@ public class RegistrosVentas implements Serializable {
 
     public void setHoraEntrada(Date horaEntrada) {
         this.horaEntrada = horaEntrada;
+    }
+
+    public Date getHoraSalida() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(Date horaSalida) {
+        this.horaSalida = horaSalida;
     }
 
     public Boleta getBoletaidboleta() {
@@ -134,7 +146,7 @@ public class RegistrosVentas implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.RegistrosVentas[ idRegistro=" + idRegistro + " ]";
+        return "cl.entities.RegistrosVentas[ idRegistro=" + idRegistro + " ]";
     }
     
 }
