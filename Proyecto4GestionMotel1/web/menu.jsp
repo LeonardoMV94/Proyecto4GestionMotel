@@ -1,17 +1,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="blue darken-3">
+<nav class="transparent">
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">
-            <c:if test ="${not empty admin}">
-                Hola ${admin.nombre} ${admin.apellido}
-            </c:if>
-            <c:if test ="${not empty operador}">
-                Hola ${vendedor.nombre} ${vendedor.apellido}
-            </c:if>
-            
-
-        </a>
+       
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <c:if test ="${not empty admin}">
                 <li><a href="producto.jsp">Gestion</a></li>

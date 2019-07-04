@@ -6,20 +6,16 @@
 package cl.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,41 +39,40 @@ public class Usuarios implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 12)
     @Column(name = "rut_usuario")
-    private Long rutUsuario;
-    @Size(max = 30)
+    private String rutUsuario;
+    @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
-    @Size(max = 30)
+    @Size(max = 45)
     @Column(name = "apellido_paterno")
     private String apellidoPaterno;
-    @Size(max = 30)
+    @Size(max = 45)
     @Column(name = "apellido_materno")
     private String apellidoMaterno;
     @Size(max = 20)
     @Column(name = "tipo_usuario")
     private String tipoUsuario;
-    @Size(max = 45)
+    @Size(max = 255)
     @Column(name = "clave")
     private String clave;
     @Size(max = 45)
     @Column(name = "correo")
     private String correo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosrutusuario")
-    private List<RegistrosVentas> registrosVentasList;
 
     public Usuarios() {
     }
 
-    public Usuarios(Long rutUsuario) {
+    public Usuarios(String rutUsuario) {
         this.rutUsuario = rutUsuario;
     }
 
-    public Long getRutUsuario() {
+    public String getRutUsuario() {
         return rutUsuario;
     }
 
-    public void setRutUsuario(Long rutUsuario) {
+    public void setRutUsuario(String rutUsuario) {
         this.rutUsuario = rutUsuario;
     }
 
@@ -127,15 +122,6 @@ public class Usuarios implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    @XmlTransient
-    public List<RegistrosVentas> getRegistrosVentasList() {
-        return registrosVentasList;
-    }
-
-    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
-        this.registrosVentasList = registrosVentasList;
     }
 
     @Override

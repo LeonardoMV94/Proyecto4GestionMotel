@@ -3,7 +3,7 @@
     Created on : Jul 4, 2019, 12:49:08 AM
     Author     : Leonardo
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-    <body class="black">
+    <body class="deep-purple darken-1">
 
         <c:if test="${not empty admin}">
             <c:import url="menu.jsp"/>
@@ -41,7 +41,7 @@
                             }, 1000);
                         </script>
 
-                        <meta http-equiv="refresh" content="5;url=index.jsp">
+                        <meta http-equiv="refresh" content="5;url=salir.jsp">
                     </div>
                 </div>
             </div>

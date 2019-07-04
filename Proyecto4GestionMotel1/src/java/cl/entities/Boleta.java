@@ -6,9 +6,7 @@
 package cl.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,8 +40,6 @@ public class Boleta implements Serializable {
     private Integer idBoleta;
     @Column(name = "precio_con_iva")
     private Integer precioConIva;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "boletaidboleta")
-    private List<RegistrosVentas> registrosVentasList;
     @JoinColumn(name = "metodo_pago_id_metodo_pago", referencedColumnName = "id_metodo_pago")
     @ManyToOne(optional = false)
     private MetodoPago metodoPagoIdMetodoPago;
@@ -71,15 +65,6 @@ public class Boleta implements Serializable {
 
     public void setPrecioConIva(Integer precioConIva) {
         this.precioConIva = precioConIva;
-    }
-
-    @XmlTransient
-    public List<RegistrosVentas> getRegistrosVentasList() {
-        return registrosVentasList;
-    }
-
-    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
-        this.registrosVentasList = registrosVentasList;
     }
 
     public MetodoPago getMetodoPagoIdMetodoPago() {
