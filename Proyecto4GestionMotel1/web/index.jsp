@@ -68,7 +68,7 @@
 
         <style>
             body{
-                background-image: url(https://pix6.agoda.net/hotelImages/6359031/0/7349aa2de592b283e6df16d2581c7412.png);
+                background-image: url(img/motel.png);
                 background-size: cover;
             }
 

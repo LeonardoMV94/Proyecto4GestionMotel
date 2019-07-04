@@ -21,6 +21,14 @@
 
         <c:if test="${not empty admin}">
             <c:import url="menu.jsp"/>
+
+
+            <script type="text/javascript">
+
+                $(document).ready(function(){
+                $('.sidenav').sidenav();
+                        
+            </script>
         </c:if>
         <c:if test="${empty admin}">
             <div class="row valign-wrapper">
@@ -32,13 +40,13 @@
                         <br> <h5>No eres administrador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
 
                         <script type="text/javascript">
-                            var timeleft = 5;
-                            var downloadTimer = setInterval(function () {
-                                timeleft--;
-                                document.getElementById("countdowntimer").textContent = timeleft;
-                                if (timeleft <= 0)
-                                    clearInterval(downloadTimer);
-                            }, 1000);
+                                    var timeleft = 5;
+                                    var downloadTimer = setInterval(function () {
+                                    timeleft--;
+                                            document.getElementById("countdowntimer").textContent = timeleft;
+                                            if (timeleft <= 0)
+                                            clearInterval(downloadTimer);
+                                    }, 1000);
                         </script>
 
                         <meta http-equiv="refresh" content="5;url=salir.jsp">
@@ -55,5 +63,14 @@
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        
+        <script type="text/javascript">
+
+                $(document).ready(function(){
+                $('.sidenav').sidenav();
+                
+
+            </script>
+        
     </body>
 </html>

@@ -21,6 +21,12 @@
 
         <c:if test="${not empty operador}">
             <c:import url="menu.jsp"/>
+
+
+
+
+
+
         </c:if>
         <c:if test="${empty operador}">
             <div class="row valign-wrapper">
@@ -53,8 +59,18 @@
 
 
 
+
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+
+
+        <script type="text/javascript">
+
+                                $(document).ready(function(){
+                                $('.sidenav').sidenav();
+
+
+        </script>
     </body>
 </html>
