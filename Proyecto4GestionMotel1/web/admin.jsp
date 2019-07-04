@@ -27,7 +27,6 @@
 
                 $(document).ready(function(){
                 $('.sidenav').sidenav();
-                        
             </script>
         </c:if>
         <c:if test="${empty admin}">
@@ -55,22 +54,25 @@
             </div>
         </c:if>
 
-
-
+       <ul id="slide-out" class="side-nav ">
+            
+            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+            <li><a href="#!">Second Link</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Subheader</a></li>
+            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        </ul>
+        
 
 
 
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-        
+
         <script type="text/javascript">
+         $(".button-collapse").sideNav();
+        </script>
 
-                $(document).ready(function(){
-                $('.sidenav').sidenav();
-                
-
-            </script>
-        
     </body>
 </html>
