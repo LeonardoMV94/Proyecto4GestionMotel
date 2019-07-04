@@ -3,6 +3,7 @@
     Created on : Jun 30, 2019, 1:24:21 PM
     Author     : Leonardo
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,51 +19,73 @@
 
     <body>
 
-        <nav>
-            <div class="nav-wrapper">
-
-                <a href="#" class="brand-logo">Logo</a>
-                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons small">menu</i></a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">JavaScript</a></li>
-                </ul>
+        <br>
+        <br>
+        <br>
 
 
-                <ul id="slide-out" class="side-nav">
-                    <li><div class="user-view">
-                            <div class="background">
-                                <img src="images/office.jpg">
+        <!-- deep-purple darken-4 -->
+
+        <div class="row valign-wrapper">
+            <div class="col s6 offset-s3">
+                <div class="card-panel transparent z-depth-3 white-text">
+
+                    <h4>Iniciar Sesión</h4>
+                    <form action="control.do" method="POST">
+                        <div class="input-field">
+                            <i class="material-icons prefix purple-text">account_circle</i>
+                            <input id="rut" type="text" name="rut">
+                            <label for="rut">Rut</label>
+                        </div>
+
+                        <div class="input-field">
+                            <i class="material-icons prefix purple-text">lock_open</i>
+                            <input id="clave" type="password" name="clave">
+                            <label for="clave">Clave</label>
+                        </div>
+                        <div class="card-action right-align">
+                            <button class="btn purple white-text" name="bt" value="iniciar" type="submit">
+                                Ingresar
+                            </button>
+                        </div>
+                    </form>
+
+                    <c:if test="${not empty msg}">
+                        <div>
+                            <div class="chip purple white-text">
+                                ${msg}
                             </div>
-                            <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-                            <a href="#!name"><span class="white-text name">John Doe</span></a>
-                            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-                        </div></li>
-                    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-                    <li><a href="#!">Second Link</a></li>
-                    <li><div class="divider"></div></li>
-                    <li><a class="subheader">Subheader</a></li>
-                    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-                </ul>  
+                        </div>
+                    </c:if>
 
+                </div>
             </div>
-        </nav>
+        </div>
 
 
 
 
 
+        <style>
+            body{
+                background-image: url(https://pix6.agoda.net/hotelImages/6359031/0/7349aa2de592b283e6df16d2581c7412.png);
+                background-size: cover;
+            }
 
-
+        </style>           
 
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script type="text/javascript">
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.parallax');
+                var instances = M.Parallax.init(elems);
+            });
 
-            $(".button-collapse").sideNav();
 
         </script>
+
+
     </body>
 </html>
