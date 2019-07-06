@@ -118,7 +118,8 @@ public class Controller extends HttpServlet {
     }
 
     private void adduser(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+
     }
 
 }

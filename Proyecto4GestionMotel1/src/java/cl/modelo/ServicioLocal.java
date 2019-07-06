@@ -21,7 +21,7 @@ public interface ServicioLocal {
     Usuarios buscarUsuarios(String rut);
     void editarUsuarios(String rut,String clave);
     List<Usuarios> getUsuarios();
-    
+        
     //modulo cliente
     Cliente buscarCliente(String rut);
     void editarCliente(int codigo,int precio,int stock, int estado);
@@ -30,11 +30,10 @@ public interface ServicioLocal {
     
     // modulo boleta
     
-    //modulo metodo de pago
     
     //metodo habitacion
+
     
-    //metodo tipo de habitacion
     
     //metodo registro de ventas
     
