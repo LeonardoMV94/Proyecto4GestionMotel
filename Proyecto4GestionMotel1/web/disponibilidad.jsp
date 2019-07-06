@@ -15,7 +15,8 @@
     InitialContext ctx = new InitialContext();
     servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
     List<Habitacion> listah = servicio.getHabitacion();
-
+// se llama a todas las habitaciones existentes y se guardan en una lista
+// se muestra en la vista usando variables dentro de jstl 
 
 %>
 <c:set scope="page" var="listah" value="<%=listah%>"/>
@@ -44,35 +45,40 @@
                 <c:forEach items="${listah}" var = "h">
 
                     <div class="col s3">
-                        <div class="card-panel">
+                        <div class="card z-depth-4">
                             <form action="control.do" method="post">
-                                <p>N° de Habitacion: ${h.idHabitacion}</p>
-                                <p>Aqui: tipo de habitacion</p>
-                                <p>Aqui: rut de cliente</p>
-                                <p>Aqui: cantidad de horas </p>
-                                <p>Aqui: COUNTDOWN</p>
 
-                                <button class="btn-floating right blue" type="submit" name="bt" value="seleccionar">
-                                    <i class="material-icons">arrow_right_alt</i>
-                                </button>   
+                                <div class="card-content">
+                                    <span class="card-title">Habitacion: Nº ${h.idHabitacion}</span>
 
 
-                                <button class="btn-floating right" type="submit" name="bt" value="editar">
-                                    <i class="material-icons">create</i>
-                                </button>
+                                    <p>Aqui: tipo de habitacion</p>
+                                    <p>Aqui: cantidad de horas </p>
+                                    <p>Aqui: COUNTDOWN</p>
+                                    
+                                    <br>
+                                    
+                                    <button class="btn-floating right blue" type="submit" name="bt" value="seleccionar">
+                                        <i class="material-icons">arrow_right_alt</i>
+                                    </button>   
 
-                                <c:choose>
-                                    <c:when test="${h.estado eq 0}">
 
-                                        <a class="btn-floating waves-effect waves-light red"><i class="material-icons">not_interested</i></a>
+                                    <button class="btn-floating right" type="submit" name="bt" value="editar">
+                                        <i class="material-icons">create</i>
+                                    </button>
 
-                                    </c:when>
-                                    <c:when test="${h.estado eq 1}">
-                                        <a class="btn-floating waves-effect waves-light green pulse"><i class="material-icons">done_outline</i></a>    
-                                        
-                                    </c:when>
-                                </c:choose>
+                                    <c:choose>
+                                        <c:when test="${h.estado eq 0}">
 
+                                            <a class="btn-floating waves-effect waves-light red"><i class="material-icons">not_interested</i></a>
+
+                                        </c:when>
+                                        <c:when test="${h.estado eq 1}">
+                                            <a class="btn-floating waves-effect waves-light green pulse"><i class="material-icons">done_outline</i></a>    
+
+                                        </c:when>
+                                    </c:choose>
+                                </div>
                             </form>
                         </div>
                     </div>
