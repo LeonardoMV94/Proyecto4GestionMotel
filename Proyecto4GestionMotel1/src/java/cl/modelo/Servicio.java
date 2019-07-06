@@ -20,6 +20,10 @@ public class Servicio implements ServicioLocal {
 
     @PersistenceContext(unitName = "Proyecto4GestionMotel1PU")
     private EntityManager em;
+    
+    /** uso de metodos de entity manager
+    https://www.arquitecturajava.com/jpa-entitymanager-metodos/
+     presionar control mas clic en enlace para abrir **/
 
     @Override
     public Usuarios iniciarSesion(String rut, String clave) {
@@ -44,9 +48,17 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public List<Usuarios> getUsuarios() {
+        
+        /** Para las querys en Entity Manager se usa el lenguaje de consulta JPQL
+        es un lenguaje de consulta orientado a objetos independiente de 
+        la plataforma definido como parte de la especificación Java Persistence API (JPA) **/
+        
         return em.createQuery("select u from Usuario u").getResultList();
     }
 
+    
+    //CLIENTES
+    
     @Override
     public Cliente buscarCliente(String rut) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -60,6 +72,35 @@ public class Servicio implements ServicioLocal {
     @Override
     public List<Cliente> getClientes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    //HABITACION
+    
+    @Override
+    public Habitacion buscarHabitacion(int idHabitacion) {
+        return em.find(Habitacion.class, idHabitacion);
+    }
+
+    @Override
+    public void editarHabitacion(int idHabitacion, Short estado) {
+        
+        Habitacion h = this.buscarHabitacion(idHabitacion);
+        //0 es falso = habitacion ocupada
+        //1 es verdadero = habitacion disponible
+        h.setEstado(estado);
+        
+        em.merge(h);
+        em.flush();
+        em.refresh(h);
+        
+        
+    }
+
+    @Override
+    public List<Habitacion> getHabitacion() {
+        return em.createQuery("select h from Habitacion h").getResultList();
     }
 
 }

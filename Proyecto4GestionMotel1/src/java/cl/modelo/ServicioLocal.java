@@ -32,8 +32,9 @@ public interface ServicioLocal {
     
     
     //metodo habitacion
-
-    
+    void editarHabitacion(int idHabitacion, Short estado);
+    Habitacion buscarHabitacion(int idHabitacion);
+    List<Habitacion> getHabitacion();
     
     //metodo registro de ventas
     

@@ -1,10 +1,25 @@
 <%-- 
-    Document   : vendedor
-    Created on : 22-06-2019, 18:00:26
+    Document   : disponibilidad
+    Created on : Jul 6, 2019, 12:59:48 AM
     Author     : Leonardo
 --%>
+
+<%@page import="cl.entities.Habitacion"%>
+<%@page import="java.util.List"%>
+<%@page import="cl.modelo.ServicioLocal"%>
+<%@page import="javax.naming.InitialContext"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! ServicioLocal servicio;%>
+<%
+    InitialContext ctx = new InitialContext();
+    servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
+    List<Habitacion> listah = servicio.getHabitacion();
+    
+   
+%>
+<c:set scope="page" var="listah" value="<%=listah%>"/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,11 +35,44 @@
     <body class="deep-purple darken-1">
 
         <c:if test="${not empty operador}">
-            
-
-            
             <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
+
+
+
+             <div class="row">
+                <c:forEach items="${listah}" var = "h">
+                    
+                        <div class="col s3">
+                            <div class="card-panel">
+                                <form action="control.do" method="post">
+                                    <p>N° de Habitacion: ${h.idHabitacion}</p>
+                                    <p>Aqui: tipo de habitacion</p>
+                                    <p>Aqui: rut de cliente</p>
+                                    <p>Aqui: cantidad de horas </p>
+                                    <p>Aqui: COUNTDOWN</p>
+                                     <p>Estado: ${h.estado}</p>
+                                   
+                                    <button class="btn-floating right" type="submit" name="bt" value="editar">
+                                        <i class="material-icons">create</i>
+                                    </button>
+                                    <button class="btn-floating right" type="submit" name="bt" value="seleccionar">
+                                        <i class="material-icons">redo</i>
+                                    </button>
+                                    <br><br>        
+                                            
+                                </form>
+                            </div>
+                        </div>
+                    
+                </c:forEach>
+            </div>
+            
+            
+            
+            
+            
+
 
 
         </c:if>
@@ -56,8 +104,7 @@
         </c:if>
 
 
-
-
+       
 
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -65,8 +112,7 @@
 
 
         <script type="text/javascript">
-             $('.button-collapse').sideNav();
-
+                               $(".button-collapse").sideNav();
         </script>
     </body>
 </html>
