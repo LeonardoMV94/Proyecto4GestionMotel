@@ -17,17 +17,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-    <body class="deep-purple darken-1">
+    <body class="black">
 
         <c:if test="${not empty admin}">
+           <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
 
 
-            <script type="text/javascript">
-
-                $(document).ready(function(){
-                $('.sidenav').sidenav();
-            </script>
+            
         </c:if>
         <c:if test="${empty admin}">
             <div class="row valign-wrapper">
@@ -35,7 +32,7 @@
                     <div class="card-panel center-align transparent white-text">
 
                         <h1>Acceso Denegado</h1>
-                        <br> <img src="http://www.doingresearchinclusively.org/wp-content/uploads/2012/06/stop-300x300.png" alt="Descripción de la imagen">
+                        <br> <img src="img/denied.png">
                         <br> <h5>No eres administrador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
 
                         <script type="text/javascript">
@@ -54,25 +51,14 @@
             </div>
         </c:if>
 
-       <ul id="slide-out" class="side-nav ">
-            
-            <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-            <li><a href="#!">Second Link</a></li>
-            <li><div class="divider"></div></li>
-            <li><a class="subheader">Subheader</a></li>
-            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-        </ul>
-        
-
-
 
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
 
         <script type="text/javascript">
-         $(".button-collapse").sideNav();
-        </script>
+             $('.button-collapse').sideNav();
 
+        </script>
     </body>
 </html>

@@ -33,23 +33,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-    <body class="deep-purple darken-1">
+    <body class="black">
 
         <c:if test="${not empty operador}">
             <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
 
 
-
+            <h2 class="center-align white-text">Habitaciones</h2>
             <div class="row">
                 <c:forEach items="${listah}" var = "h">
 
                     <div class="col s3">
-                        <div class="card z-depth-4">
+                        <div class="card z-depth-4 deep-purple darken-1">
                             <form action="control.do" method="post">
 
-                                <div class="card-content">
-                                    <span class="card-title">Habitacion: Nº ${h.idHabitacion}</span>
+                                <div class="card-content white-text">
+                                    <span class="card-title">Nº ${h.idHabitacion}</span>
 
 
                                     <p>Aqui: tipo de habitacion</p>
@@ -101,7 +101,7 @@
                         <div class="card-panel center-align transparent">
 
                             <h1>Acceso Denegado</h1>
-                            <br> <img src="http://www.doingresearchinclusively.org/wp-content/uploads/2012/06/stop-300x300.png" alt="Descripción de la imagen">
+                            <br> <img src="img/denied.png">
                             <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
 
                             <script type="text/javascript">

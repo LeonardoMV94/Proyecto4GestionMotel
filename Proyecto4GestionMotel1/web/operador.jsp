@@ -17,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-    <body class="deep-purple darken-1">
+    <body class="black">
 
         <c:if test="${not empty operador}">
             
@@ -35,7 +35,7 @@
                         <div class="card-panel center-align transparent">
 
                             <h1>Acceso Denegado</h1>
-                            <br> <img src="http://www.doingresearchinclusively.org/wp-content/uploads/2012/06/stop-300x300.png" alt="Descripción de la imagen">
+                            <br> <img src="img/denied.png">
                             <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
 
                             <script type="text/javascript">
