@@ -4,6 +4,7 @@
     Author     : Leonardo
 --%>
 
+<%@page import="cl.entities.TipoHabitacion"%>
 <%@page import="cl.entities.Habitacion"%>
 <%@page import="java.util.List"%>
 <%@page import="cl.modelo.ServicioLocal"%>
@@ -15,11 +16,13 @@
     InitialContext ctx = new InitialContext();
     servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
     List<Habitacion> listah = servicio.getHabitacion();
+
 // se llama a todas las habitaciones existentes y se guardan en una lista
 // se muestra en la vista usando variables dentro de jstl 
 
 %>
 <c:set scope="page" var="listah" value="<%=listah%>"/>
+
 
 <!DOCTYPE html>
 <html>
@@ -45,47 +48,60 @@
                 <c:forEach items="${listah}" var = "h">
 
                     <div class="col s3">
-                        <div class="card z-depth-4 deep-purple darken-1">
-                            <form action="control.do" method="post">
 
-                                <div class="card-content white-text">
-                                    <span class="card-title">Nº ${h.idHabitacion}</span>
+                        <c:choose>
+                            <c:when test="${h.estado eq 0}">
 
+                                <div class="card z-depth-4 red">
 
-                                    <p>Aqui: tipo de habitacion</p>
-                                    <p>Aqui: cantidad de horas </p>
-                                    <p>Aqui: COUNTDOWN</p>
-                                    
-                                    <br>
-                                    
-                                    <button class="btn-floating right blue" type="submit" name="bt" value="seleccionar">
-                                        <i class="material-icons">arrow_right_alt</i>
-                                    </button>   
+                                </c:when>
+                                <c:when test="${h.estado eq 1}">
+                                    <div class="card z-depth-4 green">
+
+                                    </c:when>
+                                </c:choose>
 
 
-                                    <button class="btn-floating right" type="submit" name="bt" value="editar">
-                                        <i class="material-icons">create</i>
-                                    </button>
 
-                                    <c:choose>
-                                        <c:when test="${h.estado eq 0}">
 
-                                            <a class="btn-floating waves-effect waves-light red"><i class="material-icons">not_interested</i></a>
 
-                                        </c:when>
-                                        <c:when test="${h.estado eq 1}">
-                                            <a class="btn-floating waves-effect waves-light green pulse"><i class="material-icons">done_outline</i></a>    
+                                <form action="control.do" method="post">
 
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-                            </form>
+                                    <div class="card-content white-text">
+                                        <span class="card-title">Nº ${h.idHabitacion}</span>
+
+
+                                        <!-- para obtener datos de las clases se debe 
+                                        observar el nombre de la variable en las entity de cada clase -->
+                                        <p>Tipo de Habitacion: ${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</p>
+                                        <p>$ ${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS </p>
+                                        <p>Aqui: COUNTDOWN</p>
+
+                                        <br>
+
+                                        <button class="btn-floating right blue" type="submit" name="bt" value="seleccionarhab">
+                                            <i class="material-icons">arrow_right_alt</i>
+                                        </button>   
+
+
+                                        <c:choose>
+                                            <c:when test="${h.estado eq 0}">
+
+                                                <a class="btn-floating waves-effect waves-light red"><i class="material-icons">not_interested</i></a>
+
+                                            </c:when>
+                                            <c:when test="${h.estado eq 1}">
+                                                <a class="btn-floating waves-effect waves-light green pulse"><i class="material-icons">done_outline</i></a>    
+
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
 
-                </c:forEach>
-            </div>
-
+                    </c:forEach>
+                </div>
 
 
 
@@ -93,44 +109,45 @@
 
 
 
-        </c:if>
-        <c:if test="${empty operador}">
-            <div class="row valign-wrapper">
-                <div class="col s6 offset-s3">
-                    <div class="white-text">
-                        <div class="card-panel center-align transparent">
 
-                            <h1>Acceso Denegado</h1>
-                            <br> <img src="img/denied.png">
-                            <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
+            </c:if>
+            <c:if test="${empty operador}">
+                <div class="row valign-wrapper">
+                    <div class="col s6 offset-s3">
+                        <div class="white-text">
+                            <div class="card-panel center-align transparent">
 
-                            <script type="text/javascript">
-                                var timeleft = 5;
-                                var downloadTimer = setInterval(function () {
-                                    timeleft--;
-                                    document.getElementById("countdowntimer").textContent = timeleft;
-                                    if (timeleft <= 0)
-                                        clearInterval(downloadTimer);
-                                }, 1000);
-                            </script>
+                                <h1>Acceso Denegado</h1>
+                                <br> <img src="img/denied.png">
+                                <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
 
-                            <meta http-equiv="refresh" content="5;url=salir.jsp">
+                                <script type="text/javascript">
+                                    var timeleft = 5;
+                                    var downloadTimer = setInterval(function () {
+                                        timeleft--;
+                                        document.getElementById("countdowntimer").textContent = timeleft;
+                                        if (timeleft <= 0)
+                                            clearInterval(downloadTimer);
+                                    }, 1000);
+                                </script>
+
+                                <meta http-equiv="refresh" content="5;url=salir.jsp">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </c:if>
+            </c:if>
 
 
 
 
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
+            <!--Import jQuery before materialize.js-->
+            <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script>
 
 
-        <script type="text/javascript">
-                                $(".button-collapse").sideNav();
-        </script>
+            <script type="text/javascript">
+                                    $(".button-collapse").sideNav();
+            </script>
     </body>
 </html>

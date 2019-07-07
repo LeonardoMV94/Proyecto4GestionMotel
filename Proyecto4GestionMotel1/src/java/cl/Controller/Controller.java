@@ -41,7 +41,9 @@ public class Controller extends HttpServlet {
             case "iniciar":
                 this.iniciarSesion(request, response);
                 break;
-
+            case "seleccionarhab":
+                this.agregarCliente(request, response);
+                break;    
             //BOTON CAMBIO DE CLAVE
         }
     }
@@ -119,6 +121,12 @@ public class Controller extends HttpServlet {
 
     private void adduser(HttpServletRequest request, HttpServletResponse response) {
 
+
+    }
+
+    private void agregarCliente(HttpServletRequest request, HttpServletResponse response) {
+
+        
 
     }
 

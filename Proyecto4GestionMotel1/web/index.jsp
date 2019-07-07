@@ -31,6 +31,7 @@
                 <div class="card-panel transparent z-depth-3 white-text">
 
                     <h4>Iniciar Sesión</h4>
+                    <br><br>
                     <form action="control.do" method="POST">
                         <div class="input-field">
                             <i class="material-icons prefix purple-text">account_circle</i>

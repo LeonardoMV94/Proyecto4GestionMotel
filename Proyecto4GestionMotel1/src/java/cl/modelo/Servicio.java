@@ -18,6 +18,9 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class Servicio implements ServicioLocal {
 
+    //se llama a persistencia con su nombre
+    //se le asigna una variable
+    
     @PersistenceContext(unitName = "Proyecto4GestionMotel1PU")
     private EntityManager em;
     
@@ -39,6 +42,10 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public void editarUsuarios(String rut, String clave) {
+       
+        //modificar parametros de entrada a metodo 
+        
+        
         Usuarios user = buscarUsuarios(rut);
         user.setClave(clave);
         em.merge(user);
@@ -61,7 +68,7 @@ public class Servicio implements ServicioLocal {
     
     @Override
     public Cliente buscarCliente(String rut) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return em.find(Cliente.class, rut);
     }
 
     @Override
@@ -101,6 +108,29 @@ public class Servicio implements ServicioLocal {
     @Override
     public List<Habitacion> getHabitacion() {
         return em.createQuery("select h from Habitacion h").getResultList();
+    }
+
+    
+    
+    //MODULO TIPO DE HABITACION
+    @Override
+    public void editarTipoHabitacion(int idTipoHabitacion, String descripcion, int precio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TipoHabitacion buscarTipoHabitacion(int idTipoHabitacion) {
+        return em.find(TipoHabitacion.class, idTipoHabitacion);
+    }
+
+    @Override
+    public List<TipoHabitacion> getTipoHabitacion() {
+        return em.createQuery("select t from TipoHabitacion t").getResultList();
+    }
+
+    @Override
+    public TipoHabitacion buscarTodoHabitacionyTipo(int idHabitacion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
