@@ -15,6 +15,9 @@ import javax.ejb.Local;
 @Local
 public interface ServicioLocal {
     
+    void insertar(Object o);
+    void sincronizar(Object o);
+    
     //modulo usuario
     Usuarios iniciarSesion(String rut, String clave);
     

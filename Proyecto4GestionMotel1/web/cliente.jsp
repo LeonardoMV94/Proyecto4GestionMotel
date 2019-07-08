@@ -29,7 +29,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
-    <body>
+    <body class="black">
 
 
         <c:import url="menulateral.jsp"/>
@@ -41,15 +41,26 @@
                 <div class="card-panel z-depth-4">
                     <h3>Buscar Cliente</h3>
                     <form action="control.do" method="POST">
-                        <div class="input-field left-align">
+
+                        <div class="input-field col s10">
                             <input id="rutCliente" type="text" name="rutCliente" data-length="12">
                             <label for="rutCliente">Rut</label>
                         </div>
-                        <div class="card-action right-align">
-                            <button class="btn purple white-text" name="bt" value="buscarcliente" type="submit">
+                        <div class="card-action col s2">
+                            
+                            <button class="btn-floating purple white-text" name="bt" value="addcli" type="submit">
                                 <i class="material-icons">search</i>
                             </button>
+                            
                         </div>
+                        <c:if test="${not empty msg}">
+                            <div>
+                                <div class="chip purple white-text">
+                                    <i class="close material-icons">close</i>    
+                                    ${msg}
+                                </div>
+                            </div>
+                        </c:if>
 
                         <div class="input-field">
                             <input id="nombre" type="text" name="nombre">

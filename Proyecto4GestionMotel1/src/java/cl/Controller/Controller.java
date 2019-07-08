@@ -1,5 +1,4 @@
 
-
 import cl.entities.*;
 
 import cl.modelo.ServicioLocal;
@@ -39,8 +38,13 @@ public class Controller extends HttpServlet {
                 break;
             case "seleccionarhab":
                 this.agregarCliente(request, response);
-                break;    
+                break;
             //BOTON CAMBIO DE CLAVE
+                
+            //BOTON ASIGNAR HABITACION A CLIENTE
+            case "asignarHab":
+                
+                break;
         }
     }
 
@@ -115,40 +119,56 @@ public class Controller extends HttpServlet {
 
     }
 
-    private void adduser(HttpServletRequest request, HttpServletResponse response) {
+    private void adduser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        String rutUsuario = request.getParameter("rutUsuario");
+        String nombre = request.getParameter("nombre");
+        String apellidoPaterno = request.getParameter("apellidoPaterno");
+        String apellidoMaterno = request.getParameter("apellidoMaterno");
+        String correo = request.getParameter("correo");
+        String clave = request.getParameter("clave");
+        String tipoUsuario = request.getParameter("tipoUsuario");
 
+        Usuarios usr = servicio.buscarUsuarios(rutUsuario);
+
+        
+            if (servicio.buscarUsuarios(rutUsuario) == null) {
+                Usuarios newUser = new Usuarios();
+                newUser.setRutUsuario(rutUsuario);
+                newUser.setNombre(nombre);
+                newUser.setApellidoPaterno(apellidoPaterno);
+                newUser.setApellidoMaterno(apellidoMaterno);
+                newUser.setCorreo(correo);
+                newUser.setClave(Hash.md5(clave));
+                newUser.setTipoUsuario(tipoUsuario);
+                servicio.insertar(newUser);
+                response.sendRedirect("listarUsuario.jsp");
+
+            } else {
+                request.setAttribute("msg", "Usuario ya registrado");
+                request.getRequestDispatcher("listarUsuario.jsp").forward(request, response);
+
+            }
+        
     }
 
     private void agregarCliente(HttpServletRequest request, HttpServletResponse response) {
 
-        
         String rutCliente = request.getParameter("rutCliente");
         String nombre = request.getParameter("nombre");
         String apPaterno = request.getParameter("apellidoPaterno");
         String apMaterno = request.getParameter("apellidoMaterno");
         String fechaNac = request.getParameter("fechaNacimiento");
-        
-        
-        
-         
 
     }
 
-    
     private void verificarCliente(HttpServletRequest request, HttpServletResponse response) {
 
-        
         String rutCliente = request.getParameter("rutCliente");
-        
+
         Cliente cli = servicio.buscarCliente(rutCliente);
-        
-        
-        
-         
 
     }
 
-    
-    
 }

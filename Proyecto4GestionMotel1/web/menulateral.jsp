@@ -18,7 +18,7 @@
                 <a href="#!email"><span class="white-text email">${admin.correo}</span></a>
             </div></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Crear Usuarios</a></li>
+        <li><a href="listarUsuario.jsp" class="white-text">Mostrar Usuarios</a></li>
         <li><div class="divider"></div></li>
         </c:if>
 

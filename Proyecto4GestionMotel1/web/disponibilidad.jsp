@@ -69,7 +69,9 @@
 
                                     <div class="card-content white-text">
                                         <span class="card-title">Nº ${h.idHabitacion}</span>
-
+                                        <i class="material-icons prefix medium white-text">
+                                            hotel
+                                        </i>
 
                                         <!-- para obtener datos de las clases se debe 
                                         observar el nombre de la variable en las entity de cada clase -->
@@ -78,7 +80,7 @@
                                         <p>Aqui: COUNTDOWN</p>
 
                                         <br>
-
+                                        <!--
                                         <c:choose>
                                             <c:when test="${h.estado eq 0}">
 
@@ -90,8 +92,10 @@
 
                                             </c:when>
                                         </c:choose>
+                                        -->        
+                                                
                                         <div class="card-action">
-                                            <a href="control.do?bt=editprodes&codigo=" class="white-text">Seleccionar</a>
+                                            <a href="control.do?bt=asignarHab&codigoHab=${h.idHabitacion}" class="white-text">Seleccionar</a>
                                         </div>
                                     </div>
                                 </form>

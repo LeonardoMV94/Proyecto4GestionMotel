@@ -30,7 +30,7 @@ public class Servicio implements ServicioLocal {
      */
     @Override
     public Usuarios iniciarSesion(String rut, String clave) {
-        Usuarios user = buscarUsuarios(rut);
+        Usuarios user = this.buscarUsuarios(rut);
 
         return (user != null && user.getClave().equals(clave)) ? user : null;
     }
@@ -60,7 +60,7 @@ public class Servicio implements ServicioLocal {
          * plataforma definido como parte de la especificación Java Persistence
          * API (JPA) *
          */
-        return em.createQuery("select u from Usuario u").getResultList();
+        return em.createQuery("select u from Usuarios u").getResultList();
     }
 
     //CLIENTES
@@ -144,6 +144,17 @@ public class Servicio implements ServicioLocal {
     @Override
     public List<Boleta> getBoletas() {
          return em.createQuery("select b from Boleta b").getResultList();
+    }
+
+    @Override
+    public void insertar(Object o) {
+       em.persist(o);
+    }
+
+    @Override
+    public void sincronizar(Object o) {
+      em.merge(o);
+        em.flush();
     }
 
     
