@@ -36,6 +36,9 @@
         <li><div class="divider"></div></li>
         <li><a href="disponibilidad.jsp" class="white-text">Habitaciones</a></li>
         <li><div class="divider"></div></li>
+        <li><a href="cliente.jsp" class="white-text">Clientes</a></li>
+        <li><div class="divider"></div></li>
+
 
     </c:if>
 

@@ -29,7 +29,12 @@ public interface ServicioLocal {
     
     
     // modulo boleta
+    Boleta buscarBoleta(int idBoleta);
+    void editarBoleta(int idBoleta, int precioConIva,int idMetodoPago, MetodoPago metodoPagoIdMetodoPago);
+    List<Boleta> getBoletas();
     
+  
+     
     
     //metodo habitacion
     void editarHabitacion(int idHabitacion, Short estado);

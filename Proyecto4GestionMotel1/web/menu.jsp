@@ -1,6 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<div class="navbar-fixed">
 <nav class="deep-purple darken-1">
 
     <div class="nav-wrapper">
@@ -26,6 +26,5 @@
        
     </div>
 </nav>
-
-
+</div>
 

@@ -35,7 +35,7 @@
                     <form action="control.do" method="POST">
                         <div class="input-field">
                             <i class="material-icons prefix purple-text">account_circle</i>
-                            <input id="rut" type="text" name="rut">
+                            <input id="rut" type="text" name="rut" data-length="12">
                             <label for="rut">Rut</label>
                         </div>
 
@@ -45,7 +45,7 @@
                             <label for="clave">Clave</label>
                         </div>
                         <div class="card-action right-align">
-                            <button class="btn purple white-text" name="bt" value="iniciar" type="submit">
+                            <button class="btn purple white-text pulse" name="bt" value="iniciar" type="submit">
                                 Ingresar
                             </button>
                         </div>

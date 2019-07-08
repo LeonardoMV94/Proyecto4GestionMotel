@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 import cl.entities.*;
 
@@ -127,7 +123,32 @@ public class Controller extends HttpServlet {
     private void agregarCliente(HttpServletRequest request, HttpServletResponse response) {
 
         
+        String rutCliente = request.getParameter("rutCliente");
+        String nombre = request.getParameter("nombre");
+        String apPaterno = request.getParameter("apellidoPaterno");
+        String apMaterno = request.getParameter("apellidoMaterno");
+        String fechaNac = request.getParameter("fechaNacimiento");
+        
+        
+        
+         
 
     }
 
+    
+    private void verificarCliente(HttpServletRequest request, HttpServletResponse response) {
+
+        
+        String rutCliente = request.getParameter("rutCliente");
+        
+        Cliente cli = servicio.buscarCliente(rutCliente);
+        
+        
+        
+         
+
+    }
+
+    
+    
 }

@@ -20,14 +20,14 @@ public class Servicio implements ServicioLocal {
 
     //se llama a persistencia con su nombre
     //se le asigna una variable
-    
     @PersistenceContext(unitName = "Proyecto4GestionMotel1PU")
     private EntityManager em;
-    
-    /** uso de metodos de entity manager
-    https://www.arquitecturajava.com/jpa-entitymanager-metodos/
-     presionar control mas clic en enlace para abrir **/
 
+    /**
+     * uso de metodos de entity manager
+     * https://www.arquitecturajava.com/jpa-entitymanager-metodos/ presionar
+     * control mas clic en enlace para abrir *
+     */
     @Override
     public Usuarios iniciarSesion(String rut, String clave) {
         Usuarios user = buscarUsuarios(rut);
@@ -42,10 +42,8 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public void editarUsuarios(String rut, String clave) {
-       
+
         //modificar parametros de entrada a metodo 
-        
-        
         Usuarios user = buscarUsuarios(rut);
         user.setClave(clave);
         em.merge(user);
@@ -55,20 +53,20 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public List<Usuarios> getUsuarios() {
-        
-        /** Para las querys en Entity Manager se usa el lenguaje de consulta JPQL
-        es un lenguaje de consulta orientado a objetos independiente de 
-        la plataforma definido como parte de la especificación Java Persistence API (JPA) **/
-        
+
+        /**
+         * Para las querys en Entity Manager se usa el lenguaje de consulta JPQL
+         * es un lenguaje de consulta orientado a objetos independiente de la
+         * plataforma definido como parte de la especificación Java Persistence
+         * API (JPA) *
+         */
         return em.createQuery("select u from Usuario u").getResultList();
     }
 
-    
     //CLIENTES
-    
     @Override
     public Cliente buscarCliente(String rut) {
-         return em.find(Cliente.class, rut);
+        return em.find(Cliente.class, rut);
     }
 
     @Override
@@ -78,13 +76,11 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public List<Cliente> getClientes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return em.createQuery("select c from Cliente c").getResultList();
     }
 
-    
-    
     //HABITACION
-    
     @Override
     public Habitacion buscarHabitacion(int idHabitacion) {
         return em.find(Habitacion.class, idHabitacion);
@@ -92,17 +88,16 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public void editarHabitacion(int idHabitacion, Short estado) {
-        
+
         Habitacion h = this.buscarHabitacion(idHabitacion);
         //0 es falso = habitacion ocupada
         //1 es verdadero = habitacion disponible
         h.setEstado(estado);
-        
+
         em.merge(h);
         em.flush();
         em.refresh(h);
-        
-        
+
     }
 
     @Override
@@ -110,8 +105,6 @@ public class Servicio implements ServicioLocal {
         return em.createQuery("select h from Habitacion h").getResultList();
     }
 
-    
-    
     //MODULO TIPO DE HABITACION
     @Override
     public void editarTipoHabitacion(int idTipoHabitacion, String descripcion, int precio) {
@@ -129,8 +122,30 @@ public class Servicio implements ServicioLocal {
     }
 
     @Override
-    public TipoHabitacion buscarTodoHabitacionyTipo(int idHabitacion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boleta buscarBoleta(int idBoleta) {
+       return em.find(Boleta.class, idBoleta);
     }
 
+    @Override
+    public void editarBoleta(int idBoleta, int precioConIva,int idMetodoPago, MetodoPago metodoPagoIdMetodoPago) {
+        
+       Boleta b = this.buscarBoleta(idBoleta);
+        
+        b.setPrecioConIva(precioConIva);
+        MetodoPago mp = b.getMetodoPagoIdMetodoPago();
+        mp.setIdMetodoPago(idMetodoPago);
+        b.setMetodoPagoIdMetodoPago(mp);
+        
+        em.merge(b);
+        em.flush();
+        em.refresh(b);
+    }
+
+    @Override
+    public List<Boleta> getBoletas() {
+         return em.createQuery("select b from Boleta b").getResultList();
+    }
+
+    
+    
 }

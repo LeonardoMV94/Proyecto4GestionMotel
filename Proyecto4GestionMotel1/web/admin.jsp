@@ -26,31 +26,8 @@
 
             
         </c:if>
-        <c:if test="${empty admin}">
-            <div class="row valign-wrapper">
-                <div class="col s6 offset-s3">
-                    <div class="card-panel center-align transparent white-text">
-
-                        <h1>Acceso Denegado</h1>
-                        <br> <img src="img/denied.png">
-                        <br> <h5>No eres administrador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
-
-                        <script type="text/javascript">
-                                    var timeleft = 5;
-                                    var downloadTimer = setInterval(function () {
-                                    timeleft--;
-                                            document.getElementById("countdowntimer").textContent = timeleft;
-                                            if (timeleft <= 0)
-                                            clearInterval(downloadTimer);
-                                    }, 1000);
-                        </script>
-
-                        <meta http-equiv="refresh" content="5;url=salir.jsp">
-                    </div>
-                </div>
-            </div>
-        </c:if>
-
+       
+        <c:import url="accesodenegadoadmin.jsp"/>
 
         <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

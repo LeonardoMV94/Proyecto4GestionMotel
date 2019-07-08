@@ -79,15 +79,10 @@
 
                                         <br>
 
-                                        <button class="btn-floating right blue" type="submit" name="bt" value="seleccionarhab">
-                                            <i class="material-icons">arrow_right_alt</i>
-                                        </button>   
-
-
                                         <c:choose>
                                             <c:when test="${h.estado eq 0}">
 
-                                                <a class="btn-floating waves-effect waves-light red"><i class="material-icons">not_interested</i></a>
+                                                <a class="btn-floating waves-effect waves-light red pulse"><i class="material-icons">not_interested</i></a>
 
                                             </c:when>
                                             <c:when test="${h.estado eq 1}">
@@ -95,6 +90,9 @@
 
                                             </c:when>
                                         </c:choose>
+                                        <div class="card-action">
+                                            <a href="control.do?bt=editprodes&codigo=" class="white-text">Seleccionar</a>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -103,51 +101,51 @@
                     </c:forEach>
                 </div>
 
+            </div>
 
 
 
 
 
 
+        </c:if>
+        <c:if test="${empty operador}">
+            <div class="row valign-wrapper">
+                <div class="col s6 offset-s3">
+                    <div class="white-text">
+                        <div class="card-panel center-align transparent">
 
-            </c:if>
-            <c:if test="${empty operador}">
-                <div class="row valign-wrapper">
-                    <div class="col s6 offset-s3">
-                        <div class="white-text">
-                            <div class="card-panel center-align transparent">
+                            <h1>Acceso Denegado</h1>
+                            <br> <img src="img/denied.png">
+                            <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
 
-                                <h1>Acceso Denegado</h1>
-                                <br> <img src="img/denied.png">
-                                <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
+                            <script type="text/javascript">
+                                var timeleft = 5;
+                                var downloadTimer = setInterval(function () {
+                                    timeleft--;
+                                    document.getElementById("countdowntimer").textContent = timeleft;
+                                    if (timeleft <= 0)
+                                        clearInterval(downloadTimer);
+                                }, 1000);
+                            </script>
 
-                                <script type="text/javascript">
-                                    var timeleft = 5;
-                                    var downloadTimer = setInterval(function () {
-                                        timeleft--;
-                                        document.getElementById("countdowntimer").textContent = timeleft;
-                                        if (timeleft <= 0)
-                                            clearInterval(downloadTimer);
-                                    }, 1000);
-                                </script>
-
-                                <meta http-equiv="refresh" content="5;url=salir.jsp">
-                            </div>
+                            <meta http-equiv="refresh" content="5;url=salir.jsp">
                         </div>
                     </div>
                 </div>
-            </c:if>
+            </div>
+        </c:if>
 
 
 
 
-            <!--Import jQuery before materialize.js-->
-            <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-            <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
 
 
-            <script type="text/javascript">
-                                    $(".button-collapse").sideNav();
-            </script>
+        <script type="text/javascript">
+                                $(".button-collapse").sideNav();
+        </script>
     </body>
 </html>
