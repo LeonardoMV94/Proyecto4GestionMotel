@@ -50,6 +50,28 @@ public class Servicio implements ServicioLocal {
         em.flush();
         em.refresh(user);
     }
+    
+    @Override
+    public void editarUsuarios(String rutUsuario, String nombre, String apellidoPaterno, 
+            String apellidoMaterno, String correo, String clave, String tipoUsuario) {
+       
+        Usuarios user = buscarUsuarios(rutUsuario);
+        
+        user.setNombre(nombre);
+        user.setApellidoPaterno(apellidoPaterno);
+        user.setApellidoMaterno(apellidoMaterno);
+        user.setCorreo(correo);
+        user.setClave(clave);
+        user.setTipoUsuario(tipoUsuario);
+        
+        em.merge(user);
+        em.flush();
+        em.refresh(user);
+        
+    }
+
+    
+    
 
     @Override
     public List<Usuarios> getUsuarios() {
@@ -172,6 +194,7 @@ public class Servicio implements ServicioLocal {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     
     
 }

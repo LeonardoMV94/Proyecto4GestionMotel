@@ -78,7 +78,7 @@
                                         observar el nombre de la variable en las entity de cada clase -->
                                         <p>Habitacion ${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</p>
                                         <p>$ ${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS </p>
-                                        <p>Asignado a: </p>
+                                        <p>Asignado a: Cliente</p>
                                         <p>Aqui: COUNTDOWN</p>
 
                                         <br>
@@ -95,10 +95,20 @@
                                             </c:when>
                                         </c:choose>
                                         -->        
-                                                
+
                                         <div class="card-action">
+
+                                            <button data-target="modal1" class="btn modal-trigger">Seleccionar</button>
+                                            <!--
                                             <a href="control.do?bt=asignarHab&codigoHab=${h.idHabitacion}" class="white-text">Seleccionar</a>
+                                            -->
                                         </div>
+
+
+
+
+
+
                                     </div>
                                 </form>
                             </div>
@@ -109,15 +119,26 @@
 
             </div>
 
+            
 
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Modal Header</h4>
+                    <p>A bunch of text</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close btn-flat">Agree</a>
+                </div>
+            </div>
 
 
 
 
         </c:if>
-            
-            
-       <c:import url="accesodenegadooperador.jsp"/> 
+
+
+        <c:import url="accesodenegadooperador.jsp"/> 
 
 
 
@@ -128,7 +149,15 @@
 
 
         <script type="text/javascript">
-                                $(".button-collapse").sideNav();
+            $(".button-collapse").sideNav();
         </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.modal').modal();
+            });
+        </script>
+
+
     </body>
 </html>

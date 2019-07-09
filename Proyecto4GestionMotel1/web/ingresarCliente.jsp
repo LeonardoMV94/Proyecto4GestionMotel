@@ -36,17 +36,17 @@
         <c:import url="menu.jsp"/>
 
 
-        <div class="row">
+        <div class="row valign-wrapper">
             <div class="col s6 offset-s3">
                 <div class="card-panel z-depth-4">
                     <h3>Buscar Cliente</h3>
                     <form action="control.do" method="POST">
 
-                        <div class="input-field col s10">
-                            <input id="rutCliente" type="text" name="rutCliente" data-length="12">
+                        <div class="input-field">
+                            <input id="rutCliente" type="text" name="rutCliente" data-length="10">
                             <label for="rutCliente">Rut</label>
                         </div>
-                        <div class="card-action col s2">
+                        <div class="card-action">
                             
                             <button class="btn-floating purple white-text" name="bt" value="addcli" type="submit">
                                 <i class="material-icons">search</i>

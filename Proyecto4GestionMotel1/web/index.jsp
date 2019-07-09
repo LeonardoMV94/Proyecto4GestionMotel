@@ -35,7 +35,7 @@
                     <form action="control.do" method="POST">
                         <div class="input-field">
                             <i class="material-icons prefix purple-text">account_circle</i>
-                            <input id="rut" type="text" name="rut" data-length="12">
+                            <input id="rut" type="text" name="rut" data-length="10">
                             <label for="rut">Rut</label>
                         </div>
 

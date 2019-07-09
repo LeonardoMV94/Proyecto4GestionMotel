@@ -30,7 +30,7 @@
         </c:if>
         
 
-
+         <c:import url="accesodenegadooperador.jsp"/> 
 
 
         <!--Import jQuery before materialize.js-->

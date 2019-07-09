@@ -23,6 +23,8 @@ public interface ServicioLocal {
     
     Usuarios buscarUsuarios(String rut);
     void editarUsuarios(String rut,String clave);
+    void editarUsuarios(String rutUsuario,String nombre,String apellidoPaterno,
+            String apellidoMaterno,String correo,String clave,String tipoUsuario);
     List<Usuarios> getUsuarios();
         
     //modulo cliente

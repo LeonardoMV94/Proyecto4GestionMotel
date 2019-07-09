@@ -1,4 +1,6 @@
 
+
+
 import cl.entities.*;
 
 import cl.modelo.ServicioLocal;
@@ -45,6 +47,11 @@ public class Controller extends HttpServlet {
             case "asignarHab":
                 
                 break;
+            //editar usuario    
+            case "edituser":
+                this.edituser(request, response);
+                break;    
+                
         }
     }
 
@@ -152,6 +159,24 @@ public class Controller extends HttpServlet {
             }
         
     }
+    
+    private void edituser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       
+       String rutUsuario = request.getParameter("rutUsuario");
+       String nombre = request.getParameter("nombre");
+       String apellidoPaterno = request.getParameter("apellidoPaterno");
+       String apellidoMaterno = request.getParameter("apellidoMaterno");
+       String correo = request.getParameter("correo");
+       String clave = request.getParameter("clave");
+       String tipoUsuario = request.getParameter("tipoUsuario");
+       
+       servicio.editarUsuarios(rutUsuario, nombre,apellidoPaterno,apellidoMaterno,correo,clave,tipoUsuario);
+      
+       response.sendRedirect("editarusuario.jsp");
+      
+ 
+}
 
     private void agregarCliente(HttpServletRequest request, HttpServletResponse response) {
 
@@ -170,5 +195,28 @@ public class Controller extends HttpServlet {
         Cliente cli = servicio.buscarCliente(rutCliente);
 
     }
+    
+    private void addHabitacion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        int idHabitacion = Integer.parseInt(request.getParameter("idHabitacion"));
+        Short estado = Short.parseShort(request.getParameter("estado"));
+        
+
+        Habitacion addHAB= servicio.buscarHabitacion(idHabitacion);
+
+        
+            if (servicio.buscarHabitacion(idHabitacion) == null) {
+                Habitacion newHab= new Habitacion();
+                newHab.setIdHabitacion(idHabitacion);
+                newHab.setEstado(estado);               
+                servicio.insertar(newHab);
+                response.sendRedirect("gestionHotel.jsp");
+
+            } else {
+                request.setAttribute("msg", "Habitacion ya registrada");
+                request.getRequestDispatcher("gestionHotel.jsp").forward(request, response);
+
+            }
+    }
 }
