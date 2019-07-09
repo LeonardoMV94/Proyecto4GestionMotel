@@ -64,6 +64,11 @@
                                 <input id="clave" type="password" name="clave">
                                 <label for="clave">Clave</label>
                             </div>
+                            
+                             <div class="input-field">
+                                <input id="claveR" type="password" name="claveR">
+                                <label for="claveR">Repetir Clave</label>
+                            </div>
 
                             <div class="input-field">
                                 <select name="tipoUsuario">
@@ -78,15 +83,9 @@
                                     Añadir
                                 </button>
                             </div>
-                            <a href="control.do?bt=edituser&rutUsuario=${u.rutUsuario}&nombre=${u.nombre}&apellidoPaterno=${u.apellidoPaterno}&apellidoMaterno=${u.apellidoMaterno}&correo=${u.correo}&clave=${u.clave}&tipoUsuario=${u.tipoUsuario}"
-                               class="btn">
-                                editar
-                            </a> 
+
                             <td>
-                                <a href="control.do?bt=deleteuser&codigo=${u.rutUsuario}"
-                                   class="btn-floating red">
-                                    <i class="material-icons">delete</i>
-                                </a>
+
                             </td>
 
                         </form>
@@ -108,13 +107,15 @@
                 <div class="card-panel z-depth-4">
                     <table class="bordered">
                         <tr>
-                            <th>RUT</th>
-                            <th>NOMBRE</th>
-                            <th>APELLIDO PATERNO</th>
-                            <th>APELLIDO MATERNO</th>
-                            <th>CORREO</th>
-                            <th>CLAVE</th>
-                            <th>TIPO</th>
+                            <th>Rut</th>
+                            <th>Nombre</th>
+                            <th>Apellido Paterno</th>
+                            <th>Apellido Materno</th>
+                            <th>Correo</th>
+                            <th>Clave</th>
+                            <th>Tipo</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
 
                         </tr>
 
@@ -127,7 +128,11 @@
                                 <td>${u.correo}</td>
                                 <td>${u.clave}</td>
                                 <td>${u.tipoUsuario}</td>
-
+                                <td><a href="control.do?bt=edituser&rutUsuario=${u.rutUsuario}&nombre=${u.nombre}&apellidoPaterno=${u.apellidoPaterno}&apellidoMaterno=${u.apellidoMaterno}&correo=${u.correo}&clave=${u.clave}&tipoUsuario=${u.tipoUsuario}"class="btn-floating blue">
+                                        <i class="material-icons">edit</i></a> 
+                                </td>
+                                <td><a href="control.do?bt=deleteuser&rutUsuario=${u.rutUsuario}" class="btn-floating red"><i class="material-icons">delete</i></a>
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>

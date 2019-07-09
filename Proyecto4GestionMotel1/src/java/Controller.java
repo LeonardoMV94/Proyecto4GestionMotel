@@ -1,10 +1,11 @@
 
 
 
+
 import cl.entities.*;
 
 import cl.modelo.ServicioLocal;
-import directorio.Hash;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -19,11 +20,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author Leonardo
  */
+
 @WebServlet(name = "Controller", urlPatterns = {"/control.do"})
 public class Controller extends HttpServlet {
 
     @EJB
     private ServicioLocal servicio;
+
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -4,6 +4,7 @@
     Author     : Leonardo
 --%>
 
+<%@page import="cl.entities.Cliente"%>
 <%@page import="cl.entities.TipoHabitacion"%>
 <%@page import="cl.entities.Habitacion"%>
 <%@page import="java.util.List"%>
@@ -16,8 +17,8 @@
     InitialContext ctx = new InitialContext();
     servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
     List<Habitacion> listah = servicio.getHabitacion();
-    List<Habitacion> listar = servicio.getHabitacion();
 
+    List<Cliente> lista = servicio.getClientes();
 // se llama a todas las habitaciones existentes y se guardan en una lista
 // se muestra en la vista usando variables dentro de jstl 
 
@@ -119,17 +120,61 @@
 
             </div>
 
-            
+
 
             <!-- Modal Structure -->
             <div id="modal1" class="modal">
                 <div class="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close btn-flat">cerrar</a>
+                    </div>
+                    <h3>Asignar habitacion</h3>
+                    <form action="control.do" method="POST">
+
+                        <div class="input-field">
+                            <input id="rutCliente" type="text" name="rutCliente" data-length="10">
+                            <label for="rutCliente">Rut</label>
+                        </div>
+                        <div class="card-action">
+
+                            <button class="btn-floating purple white-text" name="bt" value="buscarcli" type="submit">
+                                <i class="material-icons">search</i>
+                            </button>
+
+                        </div>
+                        <c:if test="${not empty msg}">
+                            <div>
+                                <div class="chip purple white-text">
+                                    <i class="close material-icons">close</i>    
+                                    ${msg}
+                                </div>
+                            </div>
+                        </c:if>
+
+                        <div class="input-field">
+                            <input id="nombre" type="text" name="nombre">
+                            <label for="nombre">Nombre</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="apellidoPaterno" type="text" name="apellidoPaterno">
+                            <label for="apellidoPaterno">Apellido Paterno</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="apellidoMaterno" type="text" name="apellidoMaterno">
+                            <label for="apellidoMaterno">Apellido Materno</label>
+                        </div>              
+                        <div class="input-field ">
+                            <input id="fechaNacimiento" type="text" class="datepicker" name="fechaNacimiento">
+                            <label for="fechaNacimiento">Fecha de nacimiento</label>
+                        </div>
+                        <div class="card-action right-align">
+                            <button class="btn purple white-text" name="bt" value="addcli" type="submit">
+                                Agregar
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-close btn-flat">Agree</a>
-                </div>
+
             </div>
 
 

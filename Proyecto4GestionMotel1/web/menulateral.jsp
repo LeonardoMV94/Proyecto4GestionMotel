@@ -18,11 +18,11 @@
                 <a href="#!email"><span class="white-text email">${admin.correo}</span></a>
             </div></li>
         <li><div class="divider"></div></li>
-        <li><a href="listarUsuario_1.jsp" class="white-text">Gestion Usuarios</a></li>
+        <li><a href="gestionUsuario.jsp" class="white-text">Gestion Usuarios</a></li>
         <li><div class="divider"></div></li>
         <li><a href="gestionHabitacion.jsp" class="white-text">Gestion Habitaciones</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Gestion Registros</a></li>
+        <li><a href="#" class="white-text">Listar Registros</a></li>
         <li><div class="divider"></div></li>
         <li><a href="#" class="white-text">Gestion Precios</a></li>
         <li><div class="divider"></div></li>
@@ -44,12 +44,11 @@
         <li><div class="divider"></div></li>
         <li><a href="ingresarCliente.jsp" class="white-text">Clientes</a></li>
         <li><div class="divider"></div></li>
+        <li><a href="#" class="white-text">Asignar Habitacion</a></li>
+        <li><div class="divider"></div></li>
         <li><a href="#" class="white-text">Boleta</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Asignar Habitacion</a></li>
-        <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Asignar Habitacion</a></li>
-        <li><div class="divider"></div></li>
+        
 
 
     </c:if>
