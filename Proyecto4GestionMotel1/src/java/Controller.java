@@ -35,6 +35,10 @@ public class Controller extends HttpServlet {
         String bt = request.getParameter("bt");
         switch (bt) {
 
+            case "deletcache":
+                this.eliminarCache(request, response);
+                break; 
+            
             case "adduser":
                 this.adduser(request, response);
                 break;
@@ -43,7 +47,7 @@ public class Controller extends HttpServlet {
                 this.iniciarSesion(request, response);
                 break;
             case "seleccionarhab":
-                this.agregarCliente(request, response);
+                this.addCliente(request, response);
                 break;
             //BOTON CAMBIO DE CLAVE
                 
@@ -54,7 +58,10 @@ public class Controller extends HttpServlet {
             //editar usuario    
             case "edituser":
                 this.edituser(request, response);
-                break;    
+                break; 
+                
+                
+                
                 
         }
     }
@@ -98,6 +105,13 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void eliminarCache(HttpServletRequest request, HttpServletResponse response){
+        
+        servicio.eliminarCache();
+    }
+    
+    
+    
     private void cambiarClave(HttpServletRequest request, HttpServletResponse response) {
 
     }
@@ -139,9 +153,12 @@ public class Controller extends HttpServlet {
         String apellidoMaterno = request.getParameter("apellidoMaterno");
         String correo = request.getParameter("correo");
         String clave = request.getParameter("clave");
+        String clave2 = request.getParameter("claveR");
         String tipoUsuario = request.getParameter("tipoUsuario");
 
-        Usuarios usr = servicio.buscarUsuarios(rutUsuario);
+        if (clave.equals(clave2)) {
+            
+        
 
         
             if (servicio.buscarUsuarios(rutUsuario) == null) {
@@ -158,10 +175,13 @@ public class Controller extends HttpServlet {
 
             } else {
                 request.setAttribute("msg", "Usuario ya registrado");
-                request.getRequestDispatcher("listarUsuario.jsp").forward(request, response);
+                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
 
             }
-        
+        }else{
+                request.setAttribute("msg", "las contraseñas no coinciden");
+                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
+        }
     }
     
     private void edituser(HttpServletRequest request, HttpServletResponse response)
@@ -173,16 +193,23 @@ public class Controller extends HttpServlet {
        String apellidoMaterno = request.getParameter("apellidoMaterno");
        String correo = request.getParameter("correo");
        String clave = request.getParameter("clave");
+       String claveR = request.getParameter("claveR");
        String tipoUsuario = request.getParameter("tipoUsuario");
+        if (clave.equals(claveR) && tipoUsuario!=null) {
+            servicio.editarUsuarios(rutUsuario, nombre,apellidoPaterno,apellidoMaterno,correo,Hash.md5(clave),tipoUsuario);
+            response.sendRedirect("disponibilidad.jsp");
+        }else{
+            request.setAttribute("msg", "las contraseñas no coinciden");
+            response.sendRedirect("disponibilidad.jsp");
+        }
        
-       servicio.editarUsuarios(rutUsuario, nombre,apellidoPaterno,apellidoMaterno,correo,clave,tipoUsuario);
       
-       response.sendRedirect("editarusuario.jsp");
+       
       
  
 }
 
-    private void agregarCliente(HttpServletRequest request, HttpServletResponse response) {
+    private void addCliente(HttpServletRequest request, HttpServletResponse response) {
 
         String rutCliente = request.getParameter("rutCliente");
         String nombre = request.getParameter("nombre");

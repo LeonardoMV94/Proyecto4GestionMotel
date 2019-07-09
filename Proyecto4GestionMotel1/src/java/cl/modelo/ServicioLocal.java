@@ -17,6 +17,7 @@ public interface ServicioLocal {
     
     void insertar(Object o);
     void sincronizar(Object o);
+    void eliminarCache();
     
     //modulo usuario
     Usuarios iniciarSesion(String rut, String clave);

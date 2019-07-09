@@ -64,8 +64,8 @@
                                 <input id="clave" type="password" name="clave">
                                 <label for="clave">Clave</label>
                             </div>
-                            
-                             <div class="input-field">
+
+                            <div class="input-field">
                                 <input id="claveR" type="password" name="claveR">
                                 <label for="claveR">Repetir Clave</label>
                             </div>
@@ -120,6 +120,8 @@
                         </tr>
 
                         <c:forEach items="${lista}" var="u">
+
+
                             <tr>
                                 <td>${u.rutUsuario}</td>
                                 <td>${u.nombre}</td>
@@ -128,17 +130,98 @@
                                 <td>${u.correo}</td>
                                 <td>${u.clave}</td>
                                 <td>${u.tipoUsuario}</td>
-                                <td><a href="control.do?bt=edituser&rutUsuario=${u.rutUsuario}&nombre=${u.nombre}&apellidoPaterno=${u.apellidoPaterno}&apellidoMaterno=${u.apellidoMaterno}&correo=${u.correo}&clave=${u.clave}&tipoUsuario=${u.tipoUsuario}"class="btn-floating blue">
+                                <td><a href="#modal1-${u.rutUsuario}" class="btn-floating blue modal-trigger">
                                         <i class="material-icons">edit</i></a> 
                                 </td>
                                 <td><a href="control.do?bt=deleteuser&rutUsuario=${u.rutUsuario}" class="btn-floating red"><i class="material-icons">delete</i></a>
                                 </td>
                             </tr>
+
+                            <!-- Modal Structure -->
+                            <div id="modal1-${u.rutUsuario}" class="modal">
+                                <div class="modal-content">
+                                    
+                                    <h3>Editar Usuario</h3>
+                                    <form action="control.do" method="POST">
+
+                                        <div class="input-field ">
+                                            <input id="mrutUsuario" type="text" name="rutUsuario" disabled="" value="${u.rutUsuario}">
+                                            <label for="rutUsuario">Rut</label>
+                                        </div>
+                                        <div class="input-field">
+                                            <input id="mnombre" type="text" name="nombre" value="${u.nombre}">
+                                            <label for="nombre">Nombre</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <input id="mapellidoPaterno" type="text" name="apellidoPaterno" value="${u.apellidoPaterno}">
+                                            <label for="apellidoPaterno">Apellido Paterno</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <input id="mapellidoMaterno" type="text" name="apellidoMaterno" value="${u.apellidoMaterno}">
+                                            <label for="apellidoMaterno">Apellido Materno</label>
+                                        </div>
+                                        <div class="input-field">
+                                            <input id="mcorreo" type="email" name="correo" value="${u.correo}">
+                                            <label for="correo">Correo</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <input id="mclave" type="password" name="clave">
+                                            <label for="clave">Clave</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <input id="claveR" type="password" name="claveR">
+                                            <label for="claveR">Repetir Clave</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <select name="tipoUsuario">
+                                                <option value="" disabled selected>Seleccione tipo de usuario</option>
+                                                <option value="operador">operador</option>
+                                                <option value="admin">admin</option>
+                                            </select>
+                                            <label>Tipo de Usuario</label>
+                                        </div>
+
+                                        <div class="card-action right-align">
+                                            <button class="btn" name="bt" value="edituser" type="submit">
+                                                Editar
+                                            </button>
+                                        </div>
+
+
+
+                                    </form>
+                                    
+                                </div>
+
+                            </div>
+
                         </c:forEach>
                     </table>
                     <br>
                 </div>
             </div>
+
+            <%
+
+                /**
+                 * ?mrutUsuario=${u.rutUsuario}&mnombre=${u.nombre}&mapellidoPaterno=${u.apellidoPaterno}&mapellidoMaterno=${u.apellidoMaterno}&mcorreo=${u.correo}&mclave=${u.clave}&mtipoUsuario=${u.tipoUsuario}
+                 */
+                String rut = request.getParameter("mrutUsuario");
+                String nombre = request.getParameter("mnombre");
+                String apellidoPaterno = request.getParameter("mapellidoPaterno");
+                String apellidoMaterno = request.getParameter("mapellidoMaterno");
+                String correo = request.getParameter("mcorreo");
+                String clave = request.getParameter("mclave");
+                String tipoUsuario = request.getParameter("mtipoUsuario");
+
+
+            %>
+
 
 
 
@@ -161,7 +244,14 @@
             $('.button-collapse').sideNav();
 
         </script>
+        <script type="text/javascript">
 
+            $(document).ready(function () {
+                // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+                $('.modal').modal();
+            });
+
+        </script>
 
     </body>
 </html>
