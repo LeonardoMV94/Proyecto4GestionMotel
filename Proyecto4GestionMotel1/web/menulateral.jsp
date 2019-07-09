@@ -20,7 +20,7 @@
         <li><div class="divider"></div></li>
         <li><a href="listarUsuario.jsp" class="white-text">Gestion Usuarios</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="listarUsuario.jsp" class="white-text">Gestion Habitaciones</a></li>
+        <li><a href="#" class="white-text">Gestion Habitaciones</a></li>
         <li><div class="divider"></div></li>
         <li><a href="#" class="white-text">Gestion Registros</a></li>
         <li><div class="divider"></div></li>
