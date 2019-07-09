@@ -99,7 +99,7 @@
 
                                         <div class="card-action">
 
-                                            <button data-target="modal1" class="btn modal-trigger">Seleccionar</button>
+                                            <button data-target="modal2" class="btn modal-trigger">Seleccionar</button>
                                             <!--
                                             <a href="control.do?bt=asignarHab&codigoHab=${h.idHabitacion}" class="white-text">Seleccionar</a>
                                             -->
@@ -178,6 +178,54 @@
             </div>
 
 
+            <!-- Modal Structure -->
+            <div id="modal2" class="modal">
+                <div class="modal-content">
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close btn-flat">cerrar</a>
+                        <h3>Asignar Habitación</h3>
+                        <form action="control.do" method="POST">
+
+                            <div class="input-field">
+                                <input id = "idHabitacion" type="text" name="idHabitacion" data-length="100">
+                                <label for="idHabitacon">ID HABITACION</label>
+                            </div>
+
+                            <div class="input-field">
+                                <input id="rutCliente" type="text" name="rutCliente" data-length="12">
+                                <label for="rutCliente">RUT</label>
+                            </div>
+
+                            <div class="input-field">
+                                <select>
+                                    <option value="" disabled selected>Cantidad Horas</option>
+                                    <option value="1">3 HORAS</option>
+                                    <option value="2">6 HORAS</option>
+                                    <option value="3">9 HORAS</option>
+                                    <option value="1">12 HORAS</option>
+
+
+                                </select>
+                                <label>Seleccione Cantidad De Horas</label>
+                            </div>
+                            <div class="card-action right-align"> 
+                                <button class="btn  purple" name="bt" value="asignarhab" type="submit">
+
+                                    Asignar
+                                </button>
+                            </div>
+                        </form>
+                        
+                        
+                        
+                    </div>
+                    
+                    
+                    
+                    
+                    
+
+            </div>
 
 
         </c:if>

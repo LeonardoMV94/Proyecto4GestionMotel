@@ -13,7 +13,7 @@
                 <div class="background deep-purple darken-1">
 
                 </div>
-                <a href="#!user"><img class="circle" src="img/hei.jpg"></a>
+                <a href="#!user"><img class="circle" src="img/milos.gif"></a>
                 <a href="#!name"><span class="white-text name">${admin.nombre} ${admin.apellidoPaterno} ${admin.apellidoMaterno}</span></a>
                 <a href="#!email"><span class="white-text email">${admin.correo}</span></a>
             </div></li>
@@ -34,7 +34,7 @@
                 <div class="background deep-purple darken-1">
 
                 </div>
-                <a href="#!user"><img class="circle" src="img/hei.jpg"></a>
+                <a href="#!user"><img class="circle" src="img/milos.gif"></a>
                 <a href="#!name"><span class="white-text name">${operador.nombre} ${operador.apellidoPaterno} ${operador.apellidoMaterno}</span></a>
                 <a href="#!email"><span class="white-text email">${operador.correo}</span></a>
             </div></li>
@@ -44,7 +44,7 @@
         <li><div class="divider"></div></li>
         <li><a href="ingresarCliente.jsp" class="white-text">Clientes</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Asignar Habitacion</a></li>
+        <li><a href="asignarHabitacion.jsp" class="white-text">Asignar Habitacion</a></li>
         <li><div class="divider"></div></li>
         <li><a href="#" class="white-text">Boleta</a></li>
         <li><div class="divider"></div></li>

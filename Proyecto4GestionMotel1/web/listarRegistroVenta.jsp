@@ -86,13 +86,14 @@
                     <table class="bordered">
                         <tr>
 
-                            <th>ID REGISTRO</th>
-                            <th>RUT USUARIO</th>
-                            <th>RUT CLIENTE</th>
-                            <th>ID BOLETA</th>
-                            <th>ID HABITACIÓN</th>
-                            <th>HORA ENTRADA</th>
-                            <th>HORA SALIDA</th>               
+                            <th>Id Registro</th>
+                            <th>Rut Usuario</th>
+                            <th>Rut Cliente</th>
+                            <th>Id Boleta</th>
+                            <th>Id Habitación</th>
+                            <th>Hora Entrada</th>
+                            <th>Hora Salida</th>     
+          
                         </tr>
                         <c:forEach items="${listar}" var="r">
                             <tr>
