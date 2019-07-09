@@ -22,9 +22,9 @@
         <li><div class="divider"></div></li>
         <li><a href="gestionHabitacion.jsp" class="white-text">Gestion Habitaciones</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Listar Registros</a></li>
+        <li><a href="listarRegistroVenta.jsp" class="white-text">Listar Registros</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Gestion Precios</a></li>
+        <li><a href="gestionPrecios.jsp" class="white-text">Gestion Precios</a></li>
         <li><div class="divider"></div></li>
         </c:if>
 

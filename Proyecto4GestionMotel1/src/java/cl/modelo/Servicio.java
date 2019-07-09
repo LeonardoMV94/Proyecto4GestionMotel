@@ -181,7 +181,7 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public void editarRegistro(int idRegistro, Date horaEntrada, Date horaSalida, Boleta boletaidboleta, Cliente clienterutcliente, Usuarios usuariosrutusuario, Habitacion habitacionidhabitacion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
@@ -191,12 +191,28 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public List<RegistroVentas> getRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("select r from RegistroVentas r").getResultList();
     }
 
     @Override
     public void eliminarCache() {
         em.getEntityManagerFactory().getCache().evictAll();
+    }
+
+    @Override
+    public void eliminarUsuario(Usuarios o) {
+               
+                      
+        //eliminar
+        em.remove(o);
+        em.flush();
+        
+        
+    }
+
+    @Override
+    public void eliminar(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

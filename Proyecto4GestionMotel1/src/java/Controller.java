@@ -1,7 +1,4 @@
 
-
-
-
 import cl.entities.*;
 
 import cl.modelo.ServicioLocal;
@@ -9,6 +6,7 @@ import cl.modelo.ServicioLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,14 +18,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author Leonardo
  */
-
 @WebServlet(name = "Controller", urlPatterns = {"/control.do"})
 public class Controller extends HttpServlet {
 
     @EJB
     private ServicioLocal servicio;
-
-    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,8 +32,8 @@ public class Controller extends HttpServlet {
 
             case "deletcache":
                 this.eliminarCache(request, response);
-                break; 
-            
+                break;
+
             case "adduser":
                 this.adduser(request, response);
                 break;
@@ -50,19 +45,21 @@ public class Controller extends HttpServlet {
                 this.addCliente(request, response);
                 break;
             //BOTON CAMBIO DE CLAVE
-                
+
             //BOTON ASIGNAR HABITACION A CLIENTE
             case "asignarHab":
-                
+
                 break;
             //editar usuario    
             case "edituser":
                 this.edituser(request, response);
-                break; 
-                
-                
-                
-                
+                break;
+
+            //eliminar usuario    
+            case "deleteuser":
+                this.deletuser(request, response);
+                break;
+
         }
     }
 
@@ -105,13 +102,11 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void eliminarCache(HttpServletRequest request, HttpServletResponse response){
-        
+    private void eliminarCache(HttpServletRequest request, HttpServletResponse response) {
+
         servicio.eliminarCache();
     }
-    
-    
-    
+
     private void cambiarClave(HttpServletRequest request, HttpServletResponse response) {
 
     }
@@ -157,10 +152,7 @@ public class Controller extends HttpServlet {
         String tipoUsuario = request.getParameter("tipoUsuario");
 
         if (clave.equals(clave2)) {
-            
-        
 
-        
             if (servicio.buscarUsuarios(rutUsuario) == null) {
                 Usuarios newUser = new Usuarios();
                 newUser.setRutUsuario(rutUsuario);
@@ -175,39 +167,54 @@ public class Controller extends HttpServlet {
 
             } else {
                 request.setAttribute("msg", "Usuario ya registrado");
-                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
+                request.getRequestDispatcher("disponibilidad.jsp").forward(request, response);
 
             }
-        }else{
-                request.setAttribute("msg", "las contraseñas no coinciden");
-                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
         }
     }
-    
+
     private void edituser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-       String rutUsuario = request.getParameter("rutUsuario");
-       String nombre = request.getParameter("nombre");
-       String apellidoPaterno = request.getParameter("apellidoPaterno");
-       String apellidoMaterno = request.getParameter("apellidoMaterno");
-       String correo = request.getParameter("correo");
-       String clave = request.getParameter("clave");
-       String claveR = request.getParameter("claveR");
-       String tipoUsuario = request.getParameter("tipoUsuario");
-        if (clave.equals(claveR) && tipoUsuario!=null) {
-            servicio.editarUsuarios(rutUsuario, nombre,apellidoPaterno,apellidoMaterno,correo,Hash.md5(clave),tipoUsuario);
-            response.sendRedirect("disponibilidad.jsp");
-        }else{
-            request.setAttribute("msg", "las contraseñas no coinciden");
-            response.sendRedirect("disponibilidad.jsp");
+
+        String rutUsuario = request.getParameter("rutUsuario");
+        String nombre = request.getParameter("nombre");
+        String apellidoPaterno = request.getParameter("apellidoPaterno");
+        String apellidoMaterno = request.getParameter("apellidoMaterno");
+        String correo = request.getParameter("correo");
+        String clave = request.getParameter("clave");
+        String claveR = request.getParameter("claveR");
+        String tipoUsuario = request.getParameter("tipoUsuario");
+        if (clave.equals(claveR) && tipoUsuario != null) {
+            servicio.editarUsuarios(rutUsuario, nombre, apellidoPaterno, apellidoMaterno, correo, Hash.md5(clave), tipoUsuario);
+            request.setAttribute("msg", "Usuario actualizado exitosamente");
+            response.sendRedirect("gestionUsuario.jsp");
+
+        } else {
+            request.setAttribute("msg", "las contraseñas no coinciden o no se ingreso tipo de usuario");
+            response.sendRedirect("gestionUsuario.jsp");
+
         }
-       
-      
-       
-      
- 
-}
+
+    }
+
+    private void deletuser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, EJBException {
+
+        String rutUsuario = request.getParameter("delrutUsuario");
+
+        Usuarios usr = servicio.buscarUsuarios(rutUsuario);
+        try {
+            if (usr != null) {
+                servicio.eliminarUsuario(usr);
+            }
+        } catch (Exception e) {
+
+            request.setAttribute("msg", "no se pydo eliminar usuario: " + e);
+
+            request.getRequestDispatcher("gestionUsuariojsp").forward(request, response);
+        }
+
+    }
 
     private void addCliente(HttpServletRequest request, HttpServletResponse response) {
 
@@ -226,28 +233,53 @@ public class Controller extends HttpServlet {
         Cliente cli = servicio.buscarCliente(rutCliente);
 
     }
-    
+
     private void addHabitacion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int idHabitacion = Integer.parseInt(request.getParameter("idHabitacion"));
         Short estado = Short.parseShort(request.getParameter("estado"));
-        
 
-        Habitacion addHAB= servicio.buscarHabitacion(idHabitacion);
+        Habitacion addHAB = servicio.buscarHabitacion(idHabitacion);
 
-        
-            if (servicio.buscarHabitacion(idHabitacion) == null) {
-                Habitacion newHab= new Habitacion();
-                newHab.setIdHabitacion(idHabitacion);
-                newHab.setEstado(estado);               
-                servicio.insertar(newHab);
-                response.sendRedirect("gestionHotel.jsp");
+        if (servicio.buscarHabitacion(idHabitacion) == null) {
+            Habitacion newHab = new Habitacion();
+            newHab.setIdHabitacion(idHabitacion);
+            newHab.setEstado(estado);
+            servicio.insertar(newHab);
+            response.sendRedirect("gestionHotel.jsp");
 
-            } else {
-                request.setAttribute("msg", "Habitacion ya registrada");
-                request.getRequestDispatcher("gestionHotel.jsp").forward(request, response);
+        } else {
+            request.setAttribute("msg", "Habitacion ya registrada");
+            request.getRequestDispatcher("gestionHotel.jsp").forward(request, response);
 
-            }
+        }
     }
+    
+    private void addpre(HttpServletRequest request, HttpServletResponse response) 
+         {
+        
+        String idhabitacion = request.getParameter("idTipoHabitacion");
+        String descr = request.getParameter("descripcionHabitacion");
+        String precio = request.getParameter("precio");
+       
+    
+        
+    }
+
+    private void editpre(HttpServletRequest request, HttpServletResponse response)
+        {
+        
+        String idhabitacion = request.getParameter("idTipoHabitacion");
+        String descr = request.getParameter("descripcionHabitacion");
+        String precio = request.getParameter("precio");
+        
+       // servicio.editarTipoHabitacion(idTipoHabitacion, descr, precio);
+        
+        
+    }
+    
+    
+    
+    
 }

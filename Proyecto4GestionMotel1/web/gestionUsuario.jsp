@@ -89,19 +89,19 @@
                             </td>
 
                         </form>
-                        <c:if test="${not empty msg}">
-                            <div>
-                                <div class="chip purple white-text">
-                                    ${msg}
-                                </div>
-                            </div>
-                        </c:if>
 
 
                     </div>
                 </div>
             </div>
-            <br><br>
+            <br> 
+            <div>
+                <div class="chip purple white-text">
+                    ${msg}
+                </div>
+            </div>
+
+            <br>
 
             <div class="col s10 offset-s1">
                 <div class="card-panel z-depth-4">
@@ -131,50 +131,58 @@
                                 <td>${u.clave}</td>
                                 <td>${u.tipoUsuario}</td>
                                 <td><a href="#modal1-${u.rutUsuario}" class="btn-floating blue modal-trigger">
-                                        <i class="material-icons">edit</i></a> 
+                                        <i class="material-icons">edit</i>
+                                    </a> 
                                 </td>
-                                <td><a href="control.do?bt=deleteuser&rutUsuario=${u.rutUsuario}" class="btn-floating red"><i class="material-icons">delete</i></a>
+                                <td>
+                                    <a href="control.do?bt=deleteuser&delrutUsuario=${u.rutUsuario}" class="btn-floating red"><i class="material-icons">delete</i></a>
                                 </td>
                             </tr>
 
                             <!-- Modal Structure -->
                             <div id="modal1-${u.rutUsuario}" class="modal">
                                 <div class="modal-content">
-                                    
+                                    <c:if test="${not empty msg2}">
+                                        <div>
+                                            <div class="chip purple white-text">
+                                                ${msg2}
+                                            </div>
+                                        </div>
+                                    </c:if>
                                     <h3>Editar Usuario</h3>
                                     <form action="control.do" method="POST">
 
                                         <div class="input-field ">
-                                            <input id="mrutUsuario" type="text" name="rutUsuario" disabled="" value="${u.rutUsuario}">
-                                            <label for="rutUsuario">Rut</label>
+                                            <input id="mrutUsuario" type="text" name="mrutUsuario" disabled="" value="${u.rutUsuario}">
+                                            <label for="mrutUsuario">Rut</label>
                                         </div>
                                         <div class="input-field">
-                                            <input id="mnombre" type="text" name="nombre" value="${u.nombre}">
-                                            <label for="nombre">Nombre</label>
-                                        </div>
-
-                                        <div class="input-field">
-                                            <input id="mapellidoPaterno" type="text" name="apellidoPaterno" value="${u.apellidoPaterno}">
-                                            <label for="apellidoPaterno">Apellido Paterno</label>
+                                            <input id="mnombre" type="text" name="mnombre" value="${u.nombre}">
+                                            <label for="mnombre">Nombre</label>
                                         </div>
 
                                         <div class="input-field">
-                                            <input id="mapellidoMaterno" type="text" name="apellidoMaterno" value="${u.apellidoMaterno}">
-                                            <label for="apellidoMaterno">Apellido Materno</label>
-                                        </div>
-                                        <div class="input-field">
-                                            <input id="mcorreo" type="email" name="correo" value="${u.correo}">
-                                            <label for="correo">Correo</label>
+                                            <input id="mapellidoPaterno" type="text" name="mapellidoPaterno" value="${u.apellidoPaterno}">
+                                            <label for="mapellidoPaterno">Apellido Paterno</label>
                                         </div>
 
                                         <div class="input-field">
-                                            <input id="mclave" type="password" name="clave">
-                                            <label for="clave">Clave</label>
+                                            <input id="mapellidoMaterno" type="text" name="mapellidoMaterno" value="${u.apellidoMaterno}">
+                                            <label for="mapellidoMaterno">Apellido Materno</label>
+                                        </div>
+                                        <div class="input-field">
+                                            <input id="mcorreo" type="email" name="mcorreo" value="${u.correo}">
+                                            <label for="mcorreo">Correo</label>
                                         </div>
 
                                         <div class="input-field">
-                                            <input id="claveR" type="password" name="claveR">
-                                            <label for="claveR">Repetir Clave</label>
+                                            <input id="mclave" type="password" name="mclave">
+                                            <label for="mclave">Clave</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <input id="mclaveR" type="password" name="mclaveR">
+                                            <label for="mclaveR">Repetir Clave</label>
                                         </div>
 
                                         <div class="input-field">
@@ -195,7 +203,7 @@
 
 
                                     </form>
-                                    
+
                                 </div>
 
                             </div>
@@ -205,25 +213,6 @@
                     <br>
                 </div>
             </div>
-
-            <%
-
-                /**
-                 * ?mrutUsuario=${u.rutUsuario}&mnombre=${u.nombre}&mapellidoPaterno=${u.apellidoPaterno}&mapellidoMaterno=${u.apellidoMaterno}&mcorreo=${u.correo}&mclave=${u.clave}&mtipoUsuario=${u.tipoUsuario}
-                 */
-                String rut = request.getParameter("mrutUsuario");
-                String nombre = request.getParameter("mnombre");
-                String apellidoPaterno = request.getParameter("mapellidoPaterno");
-                String apellidoMaterno = request.getParameter("mapellidoMaterno");
-                String correo = request.getParameter("mcorreo");
-                String clave = request.getParameter("mclave");
-                String tipoUsuario = request.getParameter("mtipoUsuario");
-
-
-            %>
-
-
-
 
 
         </c:if>

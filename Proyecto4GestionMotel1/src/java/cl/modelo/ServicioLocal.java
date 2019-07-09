@@ -14,7 +14,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface ServicioLocal {
-    
+    void eliminar(Object o);
     void insertar(Object o);
     void sincronizar(Object o);
     void eliminarCache();
@@ -27,6 +27,7 @@ public interface ServicioLocal {
     void editarUsuarios(String rutUsuario,String nombre,String apellidoPaterno,
             String apellidoMaterno,String correo,String clave,String tipoUsuario);
     List<Usuarios> getUsuarios();
+    void eliminarUsuario(Usuarios o);
         
     //modulo cliente
     Cliente buscarCliente(String rut);
