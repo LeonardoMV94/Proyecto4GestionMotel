@@ -7,9 +7,7 @@ package cl.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,26 +17,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Leonardo
  */
 @Entity
-@Table(name = "registros_ventas")
+@Table(name = "registro_ventas")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RegistrosVentas.findAll", query = "SELECT r FROM RegistrosVentas r")
-    , @NamedQuery(name = "RegistrosVentas.findByIdRegistro", query = "SELECT r FROM RegistrosVentas r WHERE r.idRegistro = :idRegistro")
-    , @NamedQuery(name = "RegistrosVentas.findByHoraEntrada", query = "SELECT r FROM RegistrosVentas r WHERE r.horaEntrada = :horaEntrada")
-    , @NamedQuery(name = "RegistrosVentas.findByHoraSalida", query = "SELECT r FROM RegistrosVentas r WHERE r.horaSalida = :horaSalida")})
-public class RegistrosVentas implements Serializable {
+    @NamedQuery(name = "RegistroVentas.findAll", query = "SELECT r FROM RegistroVentas r")
+    , @NamedQuery(name = "RegistroVentas.findByIdRegistro", query = "SELECT r FROM RegistroVentas r WHERE r.idRegistro = :idRegistro")
+    , @NamedQuery(name = "RegistroVentas.findByHoraEntrada", query = "SELECT r FROM RegistroVentas r WHERE r.horaEntrada = :horaEntrada")
+    , @NamedQuery(name = "RegistroVentas.findByHoraSalida", query = "SELECT r FROM RegistroVentas r WHERE r.horaSalida = :horaSalida")})
+public class RegistroVentas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,6 +48,9 @@ public class RegistrosVentas implements Serializable {
     @Column(name = "hora_salida")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaSalida;
+    @JoinColumn(name = "Boleta_id_boleta", referencedColumnName = "id_boleta")
+    @ManyToOne(optional = false)
+    private Boleta boletaidboleta;
     @JoinColumn(name = "Cliente_rut_cliente", referencedColumnName = "rut_cliente")
     @ManyToOne(optional = false)
     private Cliente clienterutcliente;
@@ -61,13 +60,11 @@ public class RegistrosVentas implements Serializable {
     @JoinColumn(name = "Usuarios_rut_usuario", referencedColumnName = "rut_usuario")
     @ManyToOne(optional = false)
     private Usuarios usuariosrutusuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "registrosventasidregistro")
-    private List<Boleta> boletaList;
 
-    public RegistrosVentas() {
+    public RegistroVentas() {
     }
 
-    public RegistrosVentas(Integer idRegistro) {
+    public RegistroVentas(Integer idRegistro) {
         this.idRegistro = idRegistro;
     }
 
@@ -95,6 +92,14 @@ public class RegistrosVentas implements Serializable {
         this.horaSalida = horaSalida;
     }
 
+    public Boleta getBoletaidboleta() {
+        return boletaidboleta;
+    }
+
+    public void setBoletaidboleta(Boleta boletaidboleta) {
+        this.boletaidboleta = boletaidboleta;
+    }
+
     public Cliente getClienterutcliente() {
         return clienterutcliente;
     }
@@ -119,15 +124,6 @@ public class RegistrosVentas implements Serializable {
         this.usuariosrutusuario = usuariosrutusuario;
     }
 
-    @XmlTransient
-    public List<Boleta> getBoletaList() {
-        return boletaList;
-    }
-
-    public void setBoletaList(List<Boleta> boletaList) {
-        this.boletaList = boletaList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -138,10 +134,10 @@ public class RegistrosVentas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RegistrosVentas)) {
+        if (!(object instanceof RegistroVentas)) {
             return false;
         }
-        RegistrosVentas other = (RegistrosVentas) object;
+        RegistroVentas other = (RegistroVentas) object;
         if ((this.idRegistro == null && other.idRegistro != null) || (this.idRegistro != null && !this.idRegistro.equals(other.idRegistro))) {
             return false;
         }
@@ -150,7 +146,7 @@ public class RegistrosVentas implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.entities.RegistrosVentas[ idRegistro=" + idRegistro + " ]";
+        return "cl.entities.RegistroVentas[ idRegistro=" + idRegistro + " ]";
     }
     
 }

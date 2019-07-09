@@ -91,41 +91,41 @@
 
                     </div>
                 </div>
-                </div>
-                <br><br>
+            </div>
+            <br><br>
 
-                <div class="col s10 offset-s1">
-                    <div class="card-panel z-depth-4">
-                        <table class="bordered">
+            <div class="col s10 offset-s1">
+                <div class="card-panel z-depth-4">
+                    <table class="bordered">
+                        <tr>
+                            <th>RUT</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDO PATERNO</th>
+                            <th>APELLIDO MATERNO</th>
+                            <th>CORREO</th>
+                            <th>CLAVE</th>
+                            <th>TIPO</th>
+
+                        </tr>
+
+                        <c:forEach items="${lista}" var="u">
                             <tr>
-                                <th>RUT</th>
-                                <th>NOMBRE</th>
-                                <th>APELLIDO PATERNO</th>
-                                <th>APELLIDO MATERNO</th>
-                                <th>CORREO</th>
-                                <th>CLAVE</th>
-                                <th>TIPO</th>
+                                <td>${u.rutUsuario}</td>
+                                <td>${u.nombre}</td>
+                                <td>${u.apellidoPaterno}</td>
+                                <td>${u.apellidoMaterno}</td>
+                                <td>${u.correo}</td>
+                                <td>${u.clave}</td>
+                                <td>${u.tipoUsuario}</td>
 
                             </tr>
-
-                            <c:forEach items="${lista}" var="u">
-                                <tr>
-                                    <td>${u.rutUsuario}</td>
-                                    <td>${u.nombre}</td>
-                                    <td>${u.apellidoPaterno}</td>
-                                    <td>${u.apellidoMaterno}</td>
-                                    <td>${u.correo}</td>
-                                    <td>${u.clave}</td>
-                                    <td>${u.tipoUsuario}</td>
-
-                                </tr>
-                            </c:forEach>
-                        </table>
-                        <br>
-                    </div>
+                        </c:forEach>
+                    </table>
+                    <br>
                 </div>
+            </div>
 
-            
+
 
 
         </c:if>
@@ -142,7 +142,10 @@
             });
 
         </script>
+        <script type="text/javascript">
+            $('.button-collapse').sideNav();
 
+        </script>
 
     </body>
 </html>

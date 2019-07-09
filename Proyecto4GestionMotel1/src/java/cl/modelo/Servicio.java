@@ -157,6 +157,21 @@ public class Servicio implements ServicioLocal {
         em.flush();
     }
 
+    @Override
+    public void editarRegistro(int idRegistro, Date horaEntrada, Date horaSalida, Boleta boletaidboleta, Cliente clienterutcliente, Usuarios usuariosrutusuario, Habitacion habitacionidhabitacion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TipoHabitacion buscarRegistro(int idRegistro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<RegistroVentas> getRegistro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
 }

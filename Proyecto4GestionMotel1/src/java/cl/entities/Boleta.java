@@ -6,7 +6,9 @@
 package cl.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,12 +44,11 @@ public class Boleta implements Serializable {
     private Integer idBoleta;
     @Column(name = "precio_con_iva")
     private Integer precioConIva;
-    @JoinColumn(name = "Registros_ventas_id_registro", referencedColumnName = "id_registro")
-    @ManyToOne(optional = false)
-    private RegistrosVentas registrosventasidregistro;
     @JoinColumn(name = "metodo_pago_id_metodo_pago", referencedColumnName = "id_metodo_pago")
     @ManyToOne(optional = false)
     private MetodoPago metodoPagoIdMetodoPago;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "boletaidboleta")
+    private List<RegistroVentas> registroVentasList;
 
     public Boleta() {
     }
@@ -70,20 +73,21 @@ public class Boleta implements Serializable {
         this.precioConIva = precioConIva;
     }
 
-    public RegistrosVentas getRegistrosventasidregistro() {
-        return registrosventasidregistro;
-    }
-
-    public void setRegistrosventasidregistro(RegistrosVentas registrosventasidregistro) {
-        this.registrosventasidregistro = registrosventasidregistro;
-    }
-
     public MetodoPago getMetodoPagoIdMetodoPago() {
         return metodoPagoIdMetodoPago;
     }
 
     public void setMetodoPagoIdMetodoPago(MetodoPago metodoPagoIdMetodoPago) {
         this.metodoPagoIdMetodoPago = metodoPagoIdMetodoPago;
+    }
+
+    @XmlTransient
+    public List<RegistroVentas> getRegistroVentasList() {
+        return registroVentasList;
+    }
+
+    public void setRegistroVentasList(List<RegistroVentas> registroVentasList) {
+        this.registroVentasList = registroVentasList;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Habitacion implements Serializable {
     @Column(name = "estado")
     private Short estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitacionidhabitacion")
-    private List<RegistrosVentas> registrosVentasList;
+    private List<RegistroVentas> registroVentasList;
     @JoinColumn(name = "tipo_habitacion_id_tipo_habitacion", referencedColumnName = "id_tipo_habitacion")
     @ManyToOne(optional = false)
     private TipoHabitacion tipoHabitacionIdTipoHabitacion;
@@ -74,12 +74,12 @@ public class Habitacion implements Serializable {
     }
 
     @XmlTransient
-    public List<RegistrosVentas> getRegistrosVentasList() {
-        return registrosVentasList;
+    public List<RegistroVentas> getRegistroVentasList() {
+        return registroVentasList;
     }
 
-    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
-        this.registrosVentasList = registrosVentasList;
+    public void setRegistroVentasList(List<RegistroVentas> registroVentasList) {
+        this.registroVentasList = registroVentasList;
     }
 
     public TipoHabitacion getTipoHabitacionIdTipoHabitacion() {

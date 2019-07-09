@@ -16,6 +16,7 @@
     InitialContext ctx = new InitialContext();
     servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
     List<Habitacion> listah = servicio.getHabitacion();
+    List<Habitacion> listar = servicio.getHabitacion();
 
 // se llama a todas las habitaciones existentes y se guardan en una lista
 // se muestra en la vista usando variables dentro de jstl 
@@ -75,8 +76,9 @@
 
                                         <!-- para obtener datos de las clases se debe 
                                         observar el nombre de la variable en las entity de cada clase -->
-                                        <p>Tipo de Habitacion: ${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</p>
+                                        <p>Habitacion ${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</p>
                                         <p>$ ${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS </p>
+                                        <p>Asignado a: </p>
                                         <p>Aqui: COUNTDOWN</p>
 
                                         <br>
@@ -113,32 +115,9 @@
 
 
         </c:if>
-        <c:if test="${empty operador}">
-            <div class="row valign-wrapper">
-                <div class="col s6 offset-s3">
-                    <div class="white-text">
-                        <div class="card-panel center-align transparent">
-
-                            <h1>Acceso Denegado</h1>
-                            <br> <img src="img/denied.png">
-                            <br> <h5>No eres operador! <br> Seras redireccionado en <span id="countdowntimer">5</span> segundos </h5>
-
-                            <script type="text/javascript">
-                                var timeleft = 5;
-                                var downloadTimer = setInterval(function () {
-                                    timeleft--;
-                                    document.getElementById("countdowntimer").textContent = timeleft;
-                                    if (timeleft <= 0)
-                                        clearInterval(downloadTimer);
-                                }, 1000);
-                            </script>
-
-                            <meta http-equiv="refresh" content="5;url=salir.jsp">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:if>
+            
+            
+       <c:import url="accesodenegadooperador.jsp"/> 
 
 
 

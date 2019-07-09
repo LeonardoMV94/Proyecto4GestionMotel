@@ -43,7 +43,7 @@ public class Usuarios implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
+    @Size(min = 1, max = 10)
     @Column(name = "rut_usuario")
     private String rutUsuario;
     @Size(max = 45)
@@ -65,7 +65,7 @@ public class Usuarios implements Serializable {
     @Column(name = "correo")
     private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosrutusuario")
-    private List<RegistrosVentas> registrosVentasList;
+    private List<RegistroVentas> registroVentasList;
 
     public Usuarios() {
     }
@@ -131,12 +131,12 @@ public class Usuarios implements Serializable {
     }
 
     @XmlTransient
-    public List<RegistrosVentas> getRegistrosVentasList() {
-        return registrosVentasList;
+    public List<RegistroVentas> getRegistroVentasList() {
+        return registroVentasList;
     }
 
-    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
-        this.registrosVentasList = registrosVentasList;
+    public void setRegistroVentasList(List<RegistroVentas> registroVentasList) {
+        this.registroVentasList = registroVentasList;
     }
 
     @Override
