@@ -98,8 +98,9 @@
                                         -->        
 
                                         <div class="card-action">
-
-                                            <button data-target="modal2" class="btn modal-trigger">Seleccionar</button>
+                                                
+                                            
+                                            <button data-target="modal${h.idHabitacion}" class="btn modal-trigger">Seleccionar</button>
                                             <!--
                                             <a href="control.do?bt=asignarHab&codigoHab=${h.idHabitacion}" class="white-text">Seleccionar</a>
                                             -->
@@ -115,6 +116,118 @@
                             </div>
                         </div>
 
+                        <!-- Modal Structure -->
+                        <div id="modal1" class="modal">
+                            <div class="modal-content">
+
+                                <h3>Asignar habitacion</h3>
+                                <form action="control.do" method="POST">
+
+                                    <div class="input-field">
+                                        <input id="rutCliente" type="text" name="rutCliente" data-length="10">
+                                        <label for="rutCliente">Rut</label>
+                                    </div>
+                                    <div class="card-action">
+
+                                        <button class="btn-floating purple white-text" name="bt" value="buscarcli" type="submit">
+                                            <i class="material-icons">search</i>
+                                        </button>
+
+                                    </div>
+                                    <c:if test="${not empty msg}">
+                                        <div>
+                                            <div class="chip purple white-text">
+                                                <i class="close material-icons">close</i>    
+                                                ${msg}
+                                            </div>
+                                        </div>
+                                    </c:if>
+
+                                    <div class="input-field">
+                                        <input id="nombre" type="text" name="nombre">
+                                        <label for="nombre">Nombre</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <input id="apellidoPaterno" type="text" name="apellidoPaterno">
+                                        <label for="apellidoPaterno">Apellido Paterno</label>
+                                    </div>
+                                    <div class="input-field">
+                                        <input id="apellidoMaterno" type="text" name="apellidoMaterno">
+                                        <label for="apellidoMaterno">Apellido Materno</label>
+                                    </div>              
+                                    <div class="input-field ">
+                                        <input id="fechaNacimiento" type="text" class="datepicker" name="fechaNacimiento">
+                                        <label for="fechaNacimiento">Fecha de nacimiento</label>
+                                    </div>
+                                    <div class="modal-footer right-align">
+
+
+                                        <button class="btn purple white-text" name="bt" value="addcli" type="submit">
+                                            Agregar
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        
+                        <%
+                            
+                            List<Cliente> listac = servicio.getClientes();
+
+                        
+
+                            %>
+                        
+
+                        <!-- Modal Structure -->
+                        <div id="modal${h.idHabitacion}" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-close btn-flat">cerrar</a>
+                                </div>
+                                <h3>Asignar Habitación</h3>
+                                <form action="control.do" method="POST">
+
+                                    <div class="input-field">
+                                        <input id = "idHabitacion" type="text" name="idHabitacion" value="${h.idHabitacion}">
+                                        <label for="idHabitacon">ID HABITACION</label>
+                                    </div>
+
+                                    <div class="input-field">
+                                        <input id="rutCliente" type="text" name="rutCliente" value="" data-length="10">
+                                         <label for="rutCliente">RUT</label>
+                                       
+                                    </div>
+
+                                    <div class="input-field">
+                                        <select name="horas">
+                                            <option value="" disabled selected>Cantidad Horas</option>
+                                            <option value="3">3 HORAS</option>
+                                            <option value="6">6 HORAS</option>
+                                            <option value="9">9 HORAS</option>
+                                            <option value="12">12 HORAS</option>
+
+                                        </select>
+                                        <label>Seleccione Cantidad De Horas</label>
+                                    </div>
+
+                                    <div class="right-align"> 
+                                        <button class="btn purple" name="bt" value="asignarhab" type="submit">
+
+                                            Asignar
+                                        </button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+
+
+                        </div>
+
                     </c:forEach>
                 </div>
 
@@ -122,110 +235,6 @@
 
 
 
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-                <div class="modal-content">
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close btn-flat">cerrar</a>
-                    </div>
-                    <h3>Asignar habitacion</h3>
-                    <form action="control.do" method="POST">
-
-                        <div class="input-field">
-                            <input id="rutCliente" type="text" name="rutCliente" data-length="10">
-                            <label for="rutCliente">Rut</label>
-                        </div>
-                        <div class="card-action">
-
-                            <button class="btn-floating purple white-text" name="bt" value="buscarcli" type="submit">
-                                <i class="material-icons">search</i>
-                            </button>
-
-                        </div>
-                        <c:if test="${not empty msg}">
-                            <div>
-                                <div class="chip purple white-text">
-                                    <i class="close material-icons">close</i>    
-                                    ${msg}
-                                </div>
-                            </div>
-                        </c:if>
-
-                        <div class="input-field">
-                            <input id="nombre" type="text" name="nombre">
-                            <label for="nombre">Nombre</label>
-                        </div>
-                        <div class="input-field">
-                            <input id="apellidoPaterno" type="text" name="apellidoPaterno">
-                            <label for="apellidoPaterno">Apellido Paterno</label>
-                        </div>
-                        <div class="input-field">
-                            <input id="apellidoMaterno" type="text" name="apellidoMaterno">
-                            <label for="apellidoMaterno">Apellido Materno</label>
-                        </div>              
-                        <div class="input-field ">
-                            <input id="fechaNacimiento" type="text" class="datepicker" name="fechaNacimiento">
-                            <label for="fechaNacimiento">Fecha de nacimiento</label>
-                        </div>
-                        <div class="card-action right-align">
-                            <button class="btn purple white-text" name="bt" value="addcli" type="submit">
-                                Agregar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-
-
-            <!-- Modal Structure -->
-            <div id="modal2" class="modal">
-                <div class="modal-content">
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close btn-flat">cerrar</a>
-                        <h3>Asignar Habitación</h3>
-                        <form action="control.do" method="POST">
-
-                            <div class="input-field">
-                                <input id = "idHabitacion" type="text" name="idHabitacion" data-length="100">
-                                <label for="idHabitacon">ID HABITACION</label>
-                            </div>
-
-                            <div class="input-field">
-                                <input id="rutCliente" type="text" name="rutCliente" data-length="12">
-                                <label for="rutCliente">RUT</label>
-                            </div>
-
-                            <div class="input-field">
-                                <select>
-                                    <option value="" disabled selected>Cantidad Horas</option>
-                                    <option value="1">3 HORAS</option>
-                                    <option value="2">6 HORAS</option>
-                                    <option value="3">9 HORAS</option>
-                                    <option value="1">12 HORAS</option>
-
-
-                                </select>
-                                <label>Seleccione Cantidad De Horas</label>
-                            </div>
-                            <div class="card-action right-align"> 
-                                <button class="btn  purple" name="bt" value="asignarhab" type="submit">
-
-                                    Asignar
-                                </button>
-                            </div>
-                        </form>
-                        
-                        
-                        
-                    </div>
-                    
-                    
-                    
-                    
-                    
-
-            </div>
 
 
         </c:if>
@@ -249,6 +258,12 @@
             $(document).ready(function () {
                 $('.modal').modal();
             });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('select').material_select();
+            });
+
         </script>
 
 
