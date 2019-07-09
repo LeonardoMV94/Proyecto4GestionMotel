@@ -72,8 +72,8 @@
 
                             <div class="input-field">
                                 <select name="tipoUsuario">
-                                    <option>operador</option>
-                                    <option value="admin">admin</option>
+                                    <option value="2">operador</option>
+                                    <option value="1">admin</option>
                                 </select>
                                 <label>Tipo de Usuario</label>
                             </div>
@@ -195,7 +195,7 @@
                                         </div>
 
                                         <div class="card-action right-align">
-                                            <button class="btn" name="bt" value="edituser" type="submit">
+                                            <button class="btn" name="bt" value="edituser2" type="submit">
                                                 Editar
                                             </button>
                                         </div>

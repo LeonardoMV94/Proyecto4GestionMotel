@@ -27,7 +27,7 @@ public interface ServicioLocal {
     void editarUsuarios(String rutUsuario,String nombre,String apellidoPaterno,
             String apellidoMaterno,String correo,String clave,String tipoUsuario);
     List<Usuarios> getUsuarios();
-    void eliminarUsuario(Usuarios o);
+   void eliminarUsuario(String rut);
         
     //modulo cliente
     Cliente buscarCliente(String rut);

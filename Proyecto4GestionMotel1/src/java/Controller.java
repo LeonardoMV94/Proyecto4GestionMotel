@@ -1,4 +1,5 @@
 
+
 import cl.entities.*;
 
 import cl.modelo.ServicioLocal;
@@ -23,6 +24,8 @@ public class Controller extends HttpServlet {
 
     @EJB
     private ServicioLocal servicio;
+
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,7 +54,7 @@ public class Controller extends HttpServlet {
 
                 break;
             //editar usuario    
-            case "edituser":
+            case "edituser2":
                 this.edituser(request, response);
                 break;
 
@@ -150,6 +153,15 @@ public class Controller extends HttpServlet {
         String clave = request.getParameter("clave");
         String clave2 = request.getParameter("claveR");
         String tipoUsuario = request.getParameter("tipoUsuario");
+        
+        if (tipoUsuario.equals("1")) {
+            String TipoUsuario="admin";
+        }else{
+            if (tipoUsuario.equals("2")) {
+                String TipoUsuario="operado";
+            }
+        }
+ 
 
         if (clave.equals(clave2)) {
 
@@ -163,11 +175,11 @@ public class Controller extends HttpServlet {
                 newUser.setClave(Hash.md5(clave));
                 newUser.setTipoUsuario(tipoUsuario);
                 servicio.insertar(newUser);
-                response.sendRedirect("listarUsuario.jsp");
+                response.sendRedirect("gestionUsuario.jsp");
 
             } else {
                 request.setAttribute("msg", "Usuario ya registrado");
-                request.getRequestDispatcher("disponibilidad.jsp").forward(request, response);
+                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
 
             }
         }
@@ -176,15 +188,25 @@ public class Controller extends HttpServlet {
     private void edituser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String rutUsuario = request.getParameter("rutUsuario");
-        String nombre = request.getParameter("nombre");
-        String apellidoPaterno = request.getParameter("apellidoPaterno");
-        String apellidoMaterno = request.getParameter("apellidoMaterno");
-        String correo = request.getParameter("correo");
-        String clave = request.getParameter("clave");
-        String claveR = request.getParameter("claveR");
-        String tipoUsuario = request.getParameter("tipoUsuario");
-        if (clave.equals(claveR) && tipoUsuario != null) {
+        String rutUsuario = request.getParameter("mrutUsuario");
+        String nombre = request.getParameter("mnombre");
+        String apellidoPaterno = request.getParameter("mapellidoPaterno");
+        String apellidoMaterno = request.getParameter("mapellidoMaterno");
+        String correo = request.getParameter("mcorreo");
+        String clave = request.getParameter("mclave");
+        String claveR = request.getParameter("mclaveR");
+        String tipoUsuario = request.getParameter("mtipoUsuario");
+        
+         if (tipoUsuario.equals("1")) {
+            String TipoUsuario="admin";
+        }else{
+            if (tipoUsuario.equals("2")) {
+                String TipoUsuario="operado";
+            }
+        }
+        
+        
+        if (clave.equals(claveR)) {
             servicio.editarUsuarios(rutUsuario, nombre, apellidoPaterno, apellidoMaterno, correo, Hash.md5(clave), tipoUsuario);
             request.setAttribute("msg", "Usuario actualizado exitosamente");
             response.sendRedirect("gestionUsuario.jsp");
@@ -205,13 +227,14 @@ public class Controller extends HttpServlet {
         Usuarios usr = servicio.buscarUsuarios(rutUsuario);
         try {
             if (usr != null) {
-                servicio.eliminarUsuario(usr);
+                servicio.eliminarUsuario(usr.getRutUsuario());
+                response.sendRedirect("gestionUsuario.jsp");
             }
         } catch (Exception e) {
 
-            request.setAttribute("msg", "no se pydo eliminar usuario: " + e);
+            request.setAttribute("msg", "no se pudo eliminar usuario: " + e);
 
-            request.getRequestDispatcher("gestionUsuariojsp").forward(request, response);
+            response.sendRedirect("gestionUsuario.jsp");
         }
 
     }

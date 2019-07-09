@@ -200,11 +200,11 @@ public class Servicio implements ServicioLocal {
     }
 
     @Override
-    public void eliminarUsuario(Usuarios o) {
+    public void eliminarUsuario(String rut) {
                
-                      
-        //eliminar
-        em.remove(o);
+       Usuarios p = em.find(Usuarios.class, rut); 
+        em.remove(p);                
+       
         em.flush();
         
         

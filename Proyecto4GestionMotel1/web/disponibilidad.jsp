@@ -44,7 +44,14 @@
             <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
 
-
+            <c:if test="${not empty msg}">
+                <div>
+                    <div class="chip purple white-text">
+                        <i class="close material-icons">close</i>    
+                        ${msg}
+                    </div>
+                </div>
+            </c:if>
             <h2 class="center-align white-text">Habitaciones</h2>
             <div class="row">
                 <c:forEach items="${listah}" var = "h">
@@ -98,8 +105,8 @@
                                         -->        
 
                                         <div class="card-action">
-                                                
-                                            
+
+
                                             <button data-target="modal${h.idHabitacion}" class="btn modal-trigger">Seleccionar</button>
                                             <!--
                                             <a href="control.do?bt=asignarHab&codigoHab=${h.idHabitacion}" class="white-text">Seleccionar</a>
@@ -134,14 +141,7 @@
                                         </button>
 
                                     </div>
-                                    <c:if test="${not empty msg}">
-                                        <div>
-                                            <div class="chip purple white-text">
-                                                <i class="close material-icons">close</i>    
-                                                ${msg}
-                                            </div>
-                                        </div>
-                                    </c:if>
+
 
                                     <div class="input-field">
                                         <input id="nombre" type="text" name="nombre">
@@ -172,15 +172,14 @@
 
                         </div>
 
-                        
+
                         <%
-                            
+
                             List<Cliente> listac = servicio.getClientes();
 
-                        
 
-                            %>
-                        
+                        %>
+
 
                         <!-- Modal Structure -->
                         <div id="modal${h.idHabitacion}" class="modal">
@@ -198,8 +197,8 @@
 
                                     <div class="input-field">
                                         <input id="rutCliente" type="text" name="rutCliente" value="" data-length="10">
-                                         <label for="rutCliente">RUT</label>
-                                       
+                                        <label for="rutCliente">RUT</label>
+
                                     </div>
 
                                     <div class="input-field">
