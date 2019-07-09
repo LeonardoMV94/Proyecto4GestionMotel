@@ -40,6 +40,9 @@ public class Boleta implements Serializable {
     private Integer idBoleta;
     @Column(name = "precio_con_iva")
     private Integer precioConIva;
+    @JoinColumn(name = "Registros_ventas_id_registro", referencedColumnName = "id_registro")
+    @ManyToOne(optional = false)
+    private RegistrosVentas registrosventasidregistro;
     @JoinColumn(name = "metodo_pago_id_metodo_pago", referencedColumnName = "id_metodo_pago")
     @ManyToOne(optional = false)
     private MetodoPago metodoPagoIdMetodoPago;
@@ -65,6 +68,14 @@ public class Boleta implements Serializable {
 
     public void setPrecioConIva(Integer precioConIva) {
         this.precioConIva = precioConIva;
+    }
+
+    public RegistrosVentas getRegistrosventasidregistro() {
+        return registrosventasidregistro;
+    }
+
+    public void setRegistrosventasidregistro(RegistrosVentas registrosventasidregistro) {
+        this.registrosventasidregistro = registrosventasidregistro;
     }
 
     public MetodoPago getMetodoPagoIdMetodoPago() {

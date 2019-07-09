@@ -6,16 +6,20 @@
 package cl.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -60,6 +64,8 @@ public class Usuarios implements Serializable {
     @Size(max = 45)
     @Column(name = "correo")
     private String correo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosrutusuario")
+    private List<RegistrosVentas> registrosVentasList;
 
     public Usuarios() {
     }
@@ -122,6 +128,15 @@ public class Usuarios implements Serializable {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    @XmlTransient
+    public List<RegistrosVentas> getRegistrosVentasList() {
+        return registrosVentasList;
+    }
+
+    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
+        this.registrosVentasList = registrosVentasList;
     }
 
     @Override

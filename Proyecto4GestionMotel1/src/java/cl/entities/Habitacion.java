@@ -6,7 +6,9 @@
 package cl.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,6 +44,8 @@ public class Habitacion implements Serializable {
     private Integer idHabitacion;
     @Column(name = "estado")
     private Short estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "habitacionidhabitacion")
+    private List<RegistrosVentas> registrosVentasList;
     @JoinColumn(name = "tipo_habitacion_id_tipo_habitacion", referencedColumnName = "id_tipo_habitacion")
     @ManyToOne(optional = false)
     private TipoHabitacion tipoHabitacionIdTipoHabitacion;
@@ -65,6 +71,15 @@ public class Habitacion implements Serializable {
 
     public void setEstado(Short estado) {
         this.estado = estado;
+    }
+
+    @XmlTransient
+    public List<RegistrosVentas> getRegistrosVentasList() {
+        return registrosVentasList;
+    }
+
+    public void setRegistrosVentasList(List<RegistrosVentas> registrosVentasList) {
+        this.registrosVentasList = registrosVentasList;
     }
 
     public TipoHabitacion getTipoHabitacionIdTipoHabitacion() {
