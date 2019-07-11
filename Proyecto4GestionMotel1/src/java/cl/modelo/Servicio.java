@@ -209,6 +209,16 @@ public class Servicio implements ServicioLocal {
         
         
     }
+    @Override
+    public void eliminarHab(int idHab) {
+               
+       Habitacion h = em.find(Habitacion.class, idHab); 
+        em.remove(h);                
+       
+        em.flush();
+        
+        
+    }
 
     @Override
     public void eliminar(Object o) {

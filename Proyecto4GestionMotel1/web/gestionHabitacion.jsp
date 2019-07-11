@@ -55,7 +55,7 @@
                                 <select name="tipoHabitacion">
 
                                     <c:forEach items="${listat}" var="t">
-                                        <option value="">${t.descripcionHabitacion}</option>
+                                        <option value="${t.idTipoHabitacion}">${t.descripcionHabitacion}</option>
                                     </c:forEach>
                                 </select>
                                 <label>Tipo de Habitación</label>
@@ -120,7 +120,18 @@
 
                             <tr>
                                 <td>${h.idHabitacion}</td>
-                                <td>${h.estado}</td>
+                                <c:choose>
+                            <c:when test="${h.estado eq 0}">
+
+                                <td>No disponible</td>
+
+                                </c:when>
+                                <c:when test="${h.estado eq 1}">
+                                   <td>Disponible</td>
+
+                                    </c:when>
+                                </c:choose>
+                                
                                 <td>${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</td>
                                 <td>$${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS</td>
                                 <td>

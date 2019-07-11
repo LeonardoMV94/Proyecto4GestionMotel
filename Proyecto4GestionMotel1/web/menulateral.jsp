@@ -46,7 +46,7 @@
         <li><div class="divider"></div></li>
         <li><a href="asignarHabitacion.jsp" class="white-text">Asignar Habitacion</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="#" class="white-text">Boleta</a></li>
+        <li><a href="pago.jsp" class="white-text">Boleta</a></li>
         <li><div class="divider"></div></li>
         
 

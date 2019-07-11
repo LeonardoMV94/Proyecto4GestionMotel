@@ -47,6 +47,7 @@ public interface ServicioLocal {
     void editarHabitacion(int idHabitacion, Short estado);
     Habitacion buscarHabitacion(int idHabitacion);
     List<Habitacion> getHabitacion();
+    void eliminarHab(int idHab);
     //metodos tipo habitacion
     
     void editarTipoHabitacion(int idTipoHabitacion, String descripcion, int precio);

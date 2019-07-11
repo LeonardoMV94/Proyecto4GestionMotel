@@ -1,5 +1,4 @@
 
-
 import cl.entities.*;
 
 import cl.modelo.ServicioLocal;
@@ -25,8 +24,6 @@ public class Controller extends HttpServlet {
     @EJB
     private ServicioLocal servicio;
 
-    
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -44,14 +41,17 @@ public class Controller extends HttpServlet {
             case "iniciar":
                 this.iniciarSesion(request, response);
                 break;
-            case "seleccionarhab":
-                this.addCliente(request, response);
+            case "asignarhab":
+                this.asignarHab(request, response);
                 break;
             //BOTON CAMBIO DE CLAVE
 
             //BOTON ASIGNAR HABITACION A CLIENTE
-            case "asignarHab":
-
+            case "addbab":
+                this.addHabitacion(request, response);
+                break;
+            case "deletehab":
+                this.deletHab(request, response);
                 break;
             //editar usuario    
             case "edituser2":
@@ -62,6 +62,7 @@ public class Controller extends HttpServlet {
             case "deleteuser":
                 this.deletuser(request, response);
                 break;
+            
 
         }
     }
@@ -153,15 +154,14 @@ public class Controller extends HttpServlet {
         String clave = request.getParameter("clave");
         String clave2 = request.getParameter("claveR");
         String tipoUsuario = request.getParameter("tipoUsuario");
-        
+
         if (tipoUsuario.equals("1")) {
-            String TipoUsuario="admin";
-        }else{
+            String TipoUsuario = "admin";
+        } else {
             if (tipoUsuario.equals("2")) {
-                String TipoUsuario="operado";
+                String TipoUsuario = "operado";
             }
         }
- 
 
         if (clave.equals(clave2)) {
 
@@ -196,16 +196,15 @@ public class Controller extends HttpServlet {
         String clave = request.getParameter("mclave");
         String claveR = request.getParameter("mclaveR");
         String tipoUsuario = request.getParameter("mtipoUsuario");
-        
-         if (tipoUsuario.equals("1")) {
-            String TipoUsuario="admin";
-        }else{
+
+        if (tipoUsuario.equals("1")) {
+            String TipoUsuario = "admin";
+        } else {
             if (tipoUsuario.equals("2")) {
-                String TipoUsuario="operado";
+                String TipoUsuario = "operado";
             }
         }
-        
-        
+
         if (clave.equals(claveR)) {
             servicio.editarUsuarios(rutUsuario, nombre, apellidoPaterno, apellidoMaterno, correo, Hash.md5(clave), tipoUsuario);
             request.setAttribute("msg", "Usuario actualizado exitosamente");
@@ -239,13 +238,39 @@ public class Controller extends HttpServlet {
 
     }
 
-    private void addCliente(HttpServletRequest request, HttpServletResponse response) {
+    private void asignarHab(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String rutCliente = request.getParameter("rutCliente");
-        String nombre = request.getParameter("nombre");
-        String apPaterno = request.getParameter("apellidoPaterno");
-        String apMaterno = request.getParameter("apellidoMaterno");
-        String fechaNac = request.getParameter("fechaNacimiento");
+        String idHab = request.getParameter("idHabitacion").trim();
+        String rut = request.getParameter("rutCliente").trim();
+        String cantidad =  request.getParameter("cantidad").trim();
+  try {
+        if (servicio.buscarCliente(rut) == null) {
+            request.setAttribute("msgmodal", 1);
+            request.setAttribute("msg", "Cliente NO esta registrado");
+            request.setAttribute("cod", idHab);
+            request.setAttribute("rutCliente", rut);
+            request.setAttribute("cantidad", cantidad);
+            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+        }else{
+            
+             request.setAttribute("msg", "Cliente ya registrado");
+             request.setAttribute("cod", idHab);
+            request.setAttribute("rutCliente", rut);
+            request.setAttribute("cantidad", cantidad);
+            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+            
+        }
+        
+      
+          
+
+        } catch (Exception e) {
+
+            request.setAttribute("msgmodal", "ERROR: " + e);
+
+            response.sendRedirect("asignarHabitacion.jsp");
+
+        }
 
     }
 
@@ -263,46 +288,55 @@ public class Controller extends HttpServlet {
         int idHabitacion = Integer.parseInt(request.getParameter("idHabitacion"));
         Short estado = Short.parseShort(request.getParameter("estado"));
 
-        Habitacion addHAB = servicio.buscarHabitacion(idHabitacion);
-
         if (servicio.buscarHabitacion(idHabitacion) == null) {
             Habitacion newHab = new Habitacion();
             newHab.setIdHabitacion(idHabitacion);
             newHab.setEstado(estado);
             servicio.insertar(newHab);
-            response.sendRedirect("gestionHotel.jsp");
+            response.sendRedirect("gestionHabitacion.jsp");
 
         } else {
             request.setAttribute("msg", "Habitacion ya registrada");
-            request.getRequestDispatcher("gestionHotel.jsp").forward(request, response);
+            request.getRequestDispatcher("gestionHabitacion.jsp").forward(request, response);
 
         }
     }
-    
-    private void addpre(HttpServletRequest request, HttpServletResponse response) 
-         {
-        
-        String idhabitacion = request.getParameter("idTipoHabitacion");
-        String descr = request.getParameter("descripcionHabitacion");
-        String precio = request.getParameter("precio");
-       
-    
-        
+
+    private void deletHab(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, EJBException {
+
+        int idH = Integer.parseInt(request.getParameter("idhab"));
+
+        Habitacion hb = servicio.buscarHabitacion(idH);
+        try {
+            if (hb != null) {
+                servicio.eliminarHab(idH);
+                response.sendRedirect("gestionHabitacion.jsp");
+            }
+        } catch (Exception e) {
+
+            request.setAttribute("msg", "no se pudo eliminar usuario: " + e);
+
+            response.sendRedirect("gestionHabitacion.jsp");
+        }
+
     }
 
-    private void editpre(HttpServletRequest request, HttpServletResponse response)
-        {
-        
+    private void deletedpre(HttpServletRequest request, HttpServletResponse response) {
+
         String idhabitacion = request.getParameter("idTipoHabitacion");
         String descr = request.getParameter("descripcionHabitacion");
         String precio = request.getParameter("precio");
-        
-       // servicio.editarTipoHabitacion(idTipoHabitacion, descr, precio);
-        
-        
+
     }
-    
-    
-    
-    
+
+    private void editpre(HttpServletRequest request, HttpServletResponse response) {
+
+        String idhabitacion = request.getParameter("idTipoHabitacion");
+        String descr = request.getParameter("descripcionHabitacion");
+        String precio = request.getParameter("precio");
+
+        // servicio.editarTipoHabitacion(idTipoHabitacion, descr, precio);
+    }
+
 }
