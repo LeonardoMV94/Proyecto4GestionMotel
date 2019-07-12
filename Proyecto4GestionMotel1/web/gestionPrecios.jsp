@@ -83,8 +83,8 @@
                             <th>ID habitacion</th>
                             <th>Tipo habitacion</th>
                             <th>Precio</th>
-                            <th>editar</th>
-                            <th>Eliminar</th>
+                            <th>Editar</th>
+                            
                         </tr>
 
                         <c:forEach items="${listat}" var="t">
@@ -98,13 +98,7 @@
                                     </a> 
                                    
                                 </td>
-                                <td>
-                                    <a href="control.do?bt=deletepre&codigo=${c.idTipoHabitacion}"
-                                       class="btn-floating red">
-                                        <i class="material-icons">delete</i>
-                                    </a>
-                                </td>
-
+                                
 
                             </tr>
                         </c:forEach>

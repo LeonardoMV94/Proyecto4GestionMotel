@@ -22,7 +22,8 @@
     <body class="black">
 
         <c:if test="${not empty operador}">
-
+            <c:import url="menulateral.jsp"/>
+            <c:import url="menu.jsp"/>
 
             <%
                 //info
@@ -34,9 +35,9 @@
             <c:set scope="page" var="codigoHab" value="<%=idH%>"/>
             <%
                 }
-                
+
             %>
-          
+
 
 
             <div class="row valign-wrapper">
@@ -80,12 +81,11 @@
                             </c:if>
 
 
-                            <
                             <br>    
 
                             <div class="input-field">
                                 <select name="cantidad">
-                                    <option value="${cantidad}" disabled selected>Cantidad Horas</option>
+                                    <option value="0${cantidad}" disabled selected>Cantidad Horas</option>
                                     <option value="3">3 HORAS</option>
                                     <option value="6">6 HORAS</option>
                                     <option value="9">9 HORAS</option>
@@ -95,17 +95,25 @@
                                 </select>
                                 <label>Cantidad de Horas</label>
                             </div>
-                            
-                                <c:if test="${not empty msgmodal}">
-                                <div class="card-action left-align"> 
-                                    <button data-target="modal1" class="btn purple modal-trigger">Ingresar Cliente</button>
 
-                                </div>
-                            </c:if>    
-                                    
-                                    
-                                    
-                                    <div class="card-action right-align"> 
+                            <div class="card-action left-align">
+                                <c:if test="${not empty msgmodal}">
+                                    <div class="card-action left-align"> 
+                                        <button data-target="modal1" class="btn purple modal-trigger">Ingresar Cliente</button>
+
+                                    </div>
+                                </c:if>    
+
+
+
+
+                            </div>
+
+
+
+                            <div class="card-action right-align"> 
+
+
                                 <button class="btn purple" name = "bt" value="registro" type="submit">
 
                                     Registrar
@@ -114,7 +122,7 @@
                             </div>
 
 
-                            
+
                         </form>
 
                     </div>

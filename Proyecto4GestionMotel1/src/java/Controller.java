@@ -62,7 +62,6 @@ public class Controller extends HttpServlet {
             case "deleteuser":
                 this.deletuser(request, response);
                 break;
-            
 
         }
     }
@@ -238,38 +237,39 @@ public class Controller extends HttpServlet {
 
     }
 
-    private void asignarHab(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void asignarHab(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, ServletException, IOException {
 
         String idHab = request.getParameter("idHabitacion").trim();
         String rut = request.getParameter("rutCliente").trim();
-        String cantidad =  request.getParameter("cantidad").trim();
-  try {
-        if (servicio.buscarCliente(rut) == null) {
-            request.setAttribute("msgmodal", 1);
-            request.setAttribute("msg", "Cliente NO esta registrado");
-            request.setAttribute("cod", idHab);
-            request.setAttribute("rutCliente", rut);
-            request.setAttribute("cantidad", cantidad);
-            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
-        }else{
-            
-             request.setAttribute("msg", "Cliente ya registrado");
-             request.setAttribute("cod", idHab);
-            request.setAttribute("rutCliente", rut);
-            request.setAttribute("cantidad", cantidad);
-            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
-            
-        }
-        
-      
-          
+        String cantidad = request.getParameter("cantidad").trim();
+        try {
+            if (servicio.buscarCliente(rut) == null) {
 
-        } catch (Exception e) {
+                request.setAttribute("msgmodal", 1);
+                request.setAttribute("msg", "Cliente NO esta registrado");
+                request.setAttribute("cod", idHab);
+                request.setAttribute("rutCliente", rut);
+                request.setAttribute("cantidad", cantidad);
+                request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
 
-            request.setAttribute("msgmodal", "ERROR: " + e);
+            }
 
-            response.sendRedirect("asignarHabitacion.jsp");
+        } catch (IOException | ServletException | NullPointerException e) {
 
+            if (idHab==null || rut==null || cantidad=="0") {
+
+                request.setAttribute("msg", "ingrese datos en todos los campos" + e);
+                request.setAttribute("cod", idHab);
+                request.setAttribute("rutCliente", "ingrese rut");
+                request.setAttribute("cantidad", 3);
+                request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+
+            } else {
+
+                request.setAttribute("msgmodal", "ERROR: " + e);
+
+                response.sendRedirect("asignarHabitacion.jsp");
+            }
         }
 
     }
