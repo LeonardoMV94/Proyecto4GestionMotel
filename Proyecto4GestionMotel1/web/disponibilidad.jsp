@@ -84,7 +84,7 @@
                                         observar el nombre de la variable en las entity de cada clase -->
                                         <p>Habitacion ${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</p>
                                         <p>$ ${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS </p>
-                                        <p>Asignado a: Cliente</p>
+                                       
                                         <p>CountDown: </p>
                                         
                                         <br>
@@ -106,11 +106,14 @@
                                         </c:choose>
                                         -->        
 
-                                        <div class="card-action">
-
+                                        <div class="card-action center-align">
+'
                                             <a href="asignarHabitacion.jsp?codigoHab=${h.idHabitacion}" class="white-text">Seleccionar</a>
-
-                                        </div>
+                                           
+                                            <!--
+                                            <a href="control.do?bt=editarHabitacion&codigoHab=${h.idHabitacion}&codigoHab=${h.idHabitacion}" class="white-text">Liberar</a>    
+                                       -->
+                                            </div>
 
 
 

@@ -44,7 +44,8 @@ public interface ServicioLocal {
      
     
     //metodo habitacion
-    void editarHabitacion(int idHabitacion, Short estado);
+    void editarHabitacion(int idHabitacion, Short estado, TipoHabitacion tHab);
+    void editarEstHab(int idHabitacion, Short estado);
     Habitacion buscarHabitacion(int idHabitacion);
     List<Habitacion> getHabitacion();
     void eliminarHab(int idHab);

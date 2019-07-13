@@ -16,7 +16,7 @@
     servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
     List<MetodoPago> listam = servicio.getMetodoPago();
 
- 
+
 %>
 <c:set scope="page" var="listam" value="<%=listam%>"/>
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
             %>
 
 
-           
+
 
             <div class="row valign-wrapper">
                 <div class="col s6 offset-s3">
@@ -108,16 +108,16 @@
                                 </select>
                                 <label>Cantidad de Horas</label>
                             </div>
-                            
+
                             <div class="input-field">
                                 <select name="metodopago">
                                     <c:forEach items="${listam}" var="m">
-                                    <option value="${m.idMetodoPago}">${m.descripcionMetodoPago}</option>
-                                     </c:forEach>
+                                        <option value="${m.idMetodoPago}">${m.descripcionMetodoPago}</option>
+                                    </c:forEach>
                                 </select>
                                 <label>Metodo de pago</label>
                             </div>
-                            
+
 
                             <div class="card-action center-align">
                                 <c:if test="${not empty msgmodal}">
@@ -134,12 +134,12 @@
 
                                 </button>
                                 -->
-                               
-                            <button class="btn purple white-text pulse" name="bt" value="registrar" type="submit">
-                                Ir a registro
-                            </button>
-                        
-                                
+
+                                <button class="btn purple white-text pulse" name="bt" value="registrar" type="submit">
+                                    Ir a registro
+                                </button>
+
+
                             </div>
 
 

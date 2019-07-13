@@ -94,14 +94,14 @@
             <br>
 
             <c:if test="${not empty msg2}">
-                            <div>
-                                <div class="chip purple white-text">
-                                    ${msg2}
-                                </div>
-                            </div>
-                        </c:if>
-            
-            
+                <div>
+                    <div class="chip purple white-text">
+                        ${msg2}
+                    </div>
+                </div>
+            </c:if>
+
+
             <div class="col s10 offset-s1">
                 <div class="card-panel z-depth-4">
                     <table class="bordered">
@@ -121,26 +121,28 @@
                             <tr>
                                 <td>${h.idHabitacion}</td>
                                 <c:choose>
-                            <c:when test="${h.estado eq 0}">
+                                    <c:when test="${h.estado eq 0}">
 
-                                <td>No disponible</td>
+                                        <td>No disponible</td>
 
-                                </c:when>
-                                <c:when test="${h.estado eq 1}">
-                                   <td>Disponible</td>
+                                    </c:when>
+                                    <c:when test="${h.estado eq 1}">
+                                        <td>Disponible</td>
 
                                     </c:when>
                                 </c:choose>
-                                
+
                                 <td>${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</td>
-                                <td>$${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS</td>
+                                <td>$ ${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS</td>
                                 <td>
                                     <!--cambiar por modal-->
-                                    <a href="control.do?bt=editarHabitacion&idHabitacion=${h.idHabitacion}&tipoHabitacionIdTipoHabitacion=${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}&estado=${h.estado}"
-                                       class="btn-floating blue">
-                                        <i class="material-icons">edit</i>
-                                    </a> 
+                                    <div class="card-action left-align"> 
+                                        <button data-target="modal${h.idHabitacion}" class="btn-floating blue modal-trigger">
+                                            <i class="material-icons">edit</i>
+                                        </button>
 
+                                    </div>
+                                </td>
 
                                 </td>
                                 <td>
@@ -153,33 +155,71 @@
                                 </td>
 
                             </tr>
-                            
-                            
-                            
+
+                            <div id="modal${h.idHabitacion}" class="modal">
+                                <div class="modal-content">
+                                    <h3>Editar Tipo a la habitacion N° ${h.idHabitacion}</h3>
+                                    <form action="control.do" method="POST">
+
+                                        <div class="input-field">
+                                            <input id="midTipoHabitacion" type="text" name="midTipoHabitacion" value="${h.idHabitacion}" readonly="readonly">
+                                            <label for="midTipoHabitacion">ID Habitacion</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <select name="mtipoHabitacion">
+
+                                                <c:forEach items="${listat}" var="t">
+                                                    <option value="${t.idTipoHabitacion}">${t.descripcionHabitacion}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <label>Tipo de Habitación</label>
+                                        </div>
+
+
+
+                                        <div class="card-action right-align">
+                                            <button class="btn" name="bt" value="editHabitacion" type="submit">
+                                                editar
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>  
+
                         </c:forEach>
                     </table>
-                    </div>
+                </div>
             </div>
 
-                </c:if>
+        </c:if>
 
-                <c:import url="accesodenegadoadmin.jsp"/>
+        <c:import url="accesodenegadoadmin.jsp"/>
 
-                <!--Import jQuery before materialize.js-->
-                <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-                <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
 
-                <script type="text/javascript">
-                    $('.button-collapse').sideNav();
+        <script type="text/javascript">
+            $('.button-collapse').sideNav();
 
-                </script>
-               
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('select').material_select();
-                    });
+        </script>
 
-                </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('select').material_select();
+            });
 
-                </body>
-                </html>
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.modal').modal();
+            });
+        </script>
+
+
+    </body>
+</html>

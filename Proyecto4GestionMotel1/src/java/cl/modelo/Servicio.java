@@ -99,13 +99,13 @@ public class Servicio implements ServicioLocal {
     }
 
     @Override
-    public void editarHabitacion(int idHabitacion, Short estado) {
+    public void editarHabitacion(int idHabitacion, Short estado, TipoHabitacion tHab) {
 
         Habitacion h = this.buscarHabitacion(idHabitacion);
         //0 es falso = habitacion ocupada
         //1 es verdadero = habitacion disponible
         h.setEstado(estado);
-
+        h.setTipoHabitacionIdTipoHabitacion(tHab);
         em.merge(h);
         em.flush();
         em.refresh(h);
@@ -235,6 +235,20 @@ public class Servicio implements ServicioLocal {
     @Override
     public List<MetodoPago> getMetodoPago() {
        return em.createQuery("select m from MetodoPago m").getResultList();
+    }
+
+    @Override
+    public void editarEstHab(int idHabitacion, Short estado) {
+       
+        Habitacion h = this.buscarHabitacion(idHabitacion);
+        //0 es falso = habitacion ocupada
+        //1 es verdadero = habitacion disponible
+        h.setEstado(estado);
+       
+        em.merge(h);
+        em.flush();
+        em.refresh(h);
+        
     }
 
 }

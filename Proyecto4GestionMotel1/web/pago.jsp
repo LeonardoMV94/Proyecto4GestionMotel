@@ -49,6 +49,12 @@
                                         <td>${tipohab}</td>
                                         
                                     </tr>
+                                    <!--
+                                    <tr>
+                                        <th>Metodo de pago</th>
+                                        <td>${metodo}</td>
+                                    </tr>
+                                    -->
                                     <tr>
                                         <th>TOTAL</th>
                                         <td>${total}</td>

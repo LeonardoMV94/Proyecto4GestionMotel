@@ -195,6 +195,9 @@ public class Controller extends HttpServlet {
         try {
             //insertando boleta
             servicio.insertar(b);
+            //cambiando estado de habitacion
+            Short est = 0;
+            servicio.editarHabitacion(idH, est, hab.getTipoHabitacionIdTipoHabitacion());
 
         } catch (Exception e) {
             request.setAttribute("msg", "error al insertar boleta: " + e);
@@ -219,6 +222,7 @@ public class Controller extends HttpServlet {
             request.setAttribute("folio", b.getIdBoleta());
             request.setAttribute("fecha", now);
             request.setAttribute("tipohab", hab.getTipoHabitacionIdTipoHabitacion().getDescripcionHabitacion());
+         //   request.setAttribute("metodo", b.getMetodoPagoIdMetodoPago().getDescripcionMetodoPago());
             request.setAttribute("total", "$" + total + " pesos");
             request.getRequestDispatcher("pago.jsp").forward(request, response);
 
@@ -316,7 +320,7 @@ public class Controller extends HttpServlet {
 
         try {
             if (clave != claveR) {
-                request.setAttribute("msgm", "las contraseñas no coinciden o no se ingreso tipo de usuario");
+                request.setAttribute("msgm", "las contraseñas no coinciden");
 
                 request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
 
@@ -325,13 +329,13 @@ public class Controller extends HttpServlet {
                 servicio.editarUsuarios(rutUsuario, nombre, apellidoPaterno,
                         apellidoMaterno, correo, Hash.md5(clave), tipoUsuario);
 
-                request.setAttribute("msgm", "Usuario actualizado exitosamente");
+                request.setAttribute("msg2", "Usuario actualizado exitosamente");
 
                 request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
 
             }
         } catch (IOException | ServletException e) {
-            request.setAttribute("msgm", "ERROR: " + e.getMessage());
+            request.setAttribute("msg2", "ERROR: " + e.getMessage());
 
             request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
         }
@@ -448,27 +452,21 @@ public class Controller extends HttpServlet {
     private void editHab(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, EJBException {
 
-        String rutUsuario = request.getParameter("idHabitacion");
-        String nombre = request.getParameter("tipoHabitacionIdTipoHabitacion");
-        String apellidoPaterno = request.getParameter("estado");
+        String idH = request.getParameter("midTipoHabitacion");
+        String tipoHab = request.getParameter("mtipoHabitacion");
+       
+        int idHab = Integer.parseInt(idH);
+        int tH = Integer.parseInt(tipoHab);
+        
 
         try {
 
-            //verificar si hay datos
-            if (nombre.equals("")) {
-
-                request.setAttribute("msg2", "Debe ingresar datos");
-
-                request.getRequestDispatcher("gestionHabitacion.jsp").forward(request, response);
-
-            } else {
-
-                //servicio.editarhabitacion
+            //    servicio.editarHabitacion(idH, Short.MIN_VALUE, tHab);
                 request.setAttribute("msg2", "Habitacion actualizada exitosamente");
 
                 request.getRequestDispatcher("gestionHabitacion.jsp").forward(request, response);
 
-            }
+            
         } catch (IOException | ServletException e) {
             request.setAttribute("msg2", "ERROR: " + e.getMessage());
 
@@ -476,6 +474,34 @@ public class Controller extends HttpServlet {
         }
 
     }
+    
+    
+    private void editEstHab(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, EJBException {
+
+        String idH = request.getParameter("codigoHab");
+        String estado = request.getParameter("estado");
+       
+        int idHab = Integer.parseInt(idH);
+        int est = Integer.parseInt(estado);
+        
+
+        try {
+
+            //    servicio.editarHabitacion(idH, Short.MIN_VALUE, tHab);
+                request.setAttribute("msg2", "Habitacion actualizada exitosamente");
+
+                request.getRequestDispatcher("gestionHabitacion.jsp").forward(request, response);
+
+            
+        } catch (IOException | ServletException e) {
+            request.setAttribute("msg2", "ERROR: " + e.getMessage());
+
+            request.getRequestDispatcher("gestionHabitacion.jsp").forward(request, response);
+        }
+
+    }
+
 
     private void deletHab(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, EJBException {

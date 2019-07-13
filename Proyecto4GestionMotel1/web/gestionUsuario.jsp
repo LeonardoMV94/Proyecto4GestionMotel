@@ -131,9 +131,13 @@
                                 <td>${u.correo}</td>
                                 <td>${u.clave}</td>
                                 <td>${u.tipoUsuario}</td>
-                                <td><a href="#modal1-${u.rutUsuario}" class="btn-floating blue modal-trigger">
+                                <td>
+
+                                    <button data-target="modal1-${u.rutUsuario}" class="btn-floating blue modal-trigger">
                                         <i class="material-icons">edit</i>
-                                    </a> 
+                                    </button>
+
+
                                 </td>
                                 <td>
                                     <a href="control.do?bt=deleteuser&delrutUsuario=${u.rutUsuario}" class="btn-floating red"><i class="material-icons">delete</i></a>
