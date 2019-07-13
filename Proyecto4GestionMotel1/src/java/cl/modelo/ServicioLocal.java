@@ -59,7 +59,13 @@ public interface ServicioLocal {
     void editarRegistro(int idRegistro, Date horaEntrada, Date horaSalida,Boleta boletaidboleta,
             Cliente clienterutcliente,Usuarios usuariosrutusuario, Habitacion habitacionidhabitacion );
     
-    TipoHabitacion buscarRegistro(int idRegistro);
+    RegistroVentas buscarRegistro(int idRegistro);
     List<RegistroVentas> getRegistro();
+    
+    int ultimoIdRegistro();
+    
+    //MetodoPago
+    List<MetodoPago> getMetodoPago();
+    
     
 }

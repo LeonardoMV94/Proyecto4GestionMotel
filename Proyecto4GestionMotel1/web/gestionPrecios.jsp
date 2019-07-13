@@ -42,7 +42,7 @@
             <div class="row valign-wrapper">
                 <div class="col s6 offset-s3">
                     <div class="card-panel z-depth-4">
-                        <h3>Lista de precios</h3>
+                        <h3>Crear tipo de habitacion y precio</h3>
                         <form action="control.do" method="POST">
 
                             <div class="input-field">

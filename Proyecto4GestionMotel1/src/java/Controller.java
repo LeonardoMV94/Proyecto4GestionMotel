@@ -8,6 +8,9 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,9 +82,14 @@ public class Controller extends HttpServlet {
             case "addpre":
                 this.addpre(request, response);
                 break;
-                
+
             case "addcli":
-            //    this.addcli(request, response);
+                this.addcli(request, response);
+                break;
+
+            //registrar
+            case "registrar":
+                this.registrar(request, response);
                 break;
 
         }
@@ -137,6 +145,90 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void registrar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String rutCli = request.getParameter("rutCliente");
+        String idHabitacion = request.getParameter("idHabitacion");
+        String cantidad = request.getParameter("cantidad");
+        String idmetodo = request.getParameter("metodopago");
+        //buscar cliente
+        Cliente newCli = servicio.buscarCliente(rutCli);
+
+        //buscar habitacion
+        int idH = Integer.parseInt(idHabitacion);
+        Habitacion hab = servicio.buscarHabitacion(idH);
+
+        //crear boleta
+        //obtener usuario de la sesion
+        HttpSession misession = (HttpSession) request.getSession();
+        Usuarios user = (Usuarios) misession.getAttribute("operador");
+        Usuarios usr = (Usuarios) servicio.buscarUsuarios(user.getRutUsuario());
+
+        //parsear cantidad de horas
+        int cantHoras = Integer.parseInt(cantidad);
+
+        //obtener la fecha y hora actual
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        Date now = new Date();
+        //para mostrar a String
+        String strDate = sdfDate.format(now);
+
+        //calcular hora de termino
+        DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar termino = Calendar.getInstance();
+        termino.add(Calendar.HOUR, cantHoras);
+        Date horaTermino = termino.getTime();
+
+        //creando boleta
+        Boleta b = new Boleta();
+        int idMetodo = Integer.parseInt(idmetodo);
+        MetodoPago mp = new MetodoPago();
+        mp.setIdMetodoPago(idMetodo);
+        b.setMetodoPagoIdMetodoPago(mp);
+
+        //calculo de precio con iva de boleta
+        int total = (hab.getTipoHabitacionIdTipoHabitacion().getPrecio()) * (cantHoras / 3);
+
+        b.setPrecioConIva(total);
+
+        try {
+            //insertando boleta
+            servicio.insertar(b);
+
+        } catch (Exception e) {
+            request.setAttribute("msg", "error al insertar boleta: " + e);
+
+            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+        }
+
+        RegistroVentas rv = new RegistroVentas();
+
+        rv.setHabitacionidhabitacion(hab);
+        rv.setUsuariosrutusuario(usr);
+        rv.setClienterutcliente(newCli);
+        rv.setHabitacionidhabitacion(hab);
+        rv.setHoraEntrada(now);
+        rv.setHoraSalida(horaTermino);
+        rv.setBoletaidboleta(b);
+
+        try {
+            servicio.insertar(rv);
+
+           
+            request.setAttribute("folio", b.getIdBoleta());
+            request.setAttribute("fecha", now);
+            request.setAttribute("tipohab", hab.getTipoHabitacionIdTipoHabitacion().getDescripcionHabitacion());
+            request.setAttribute("total", "$" + total + " pesos");
+            request.getRequestDispatcher("pago.jsp").forward(request, response);
+
+        } catch (IOException | ServletException e) {
+            request.setAttribute("msg", "ERROR:" + e);
+            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+
+        }
+
+    }
 
     private void eliminarCache(HttpServletRequest request, HttpServletResponse response) {
 
@@ -267,7 +359,8 @@ public class Controller extends HttpServlet {
 
     }
 
-    private void asignarHab(HttpServletRequest request, HttpServletResponse response) throws NullPointerException, ServletException, IOException {
+    private void asignarHab(HttpServletRequest request, HttpServletResponse response)
+            throws NullPointerException, ServletException, IOException, EJBException {
 
         String idHab = request.getParameter("idHabitacion").trim();
         String rut = request.getParameter("rutCliente").trim();
@@ -277,7 +370,7 @@ public class Controller extends HttpServlet {
 
             request.setAttribute("msg", "ingrese datos en todos los campos");
             request.setAttribute("cod", idHab);
-            request.setAttribute("rutCliente", "ingrese rut");
+            request.setAttribute("rv", "ingrese rut");
             request.setAttribute("cantidad", 3);
             request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
 
@@ -289,13 +382,21 @@ public class Controller extends HttpServlet {
                 request.setAttribute("msgmodal", 1);
                 request.setAttribute("msg", "Cliente NO esta registrado");
                 request.setAttribute("cod", idHab);
-                request.setAttribute("rutCliente", "presione boton de ingresar cliente");
+                request.setAttribute("rv", "presione boton de ingresar cliente");
                 request.setAttribute("cantidad", 3);
+                request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+
+            } else {
+                request.setAttribute("msgmodal", null);
+                request.setAttribute("msg", "Cliente ya esta registrado en el sistema");
+                request.setAttribute("cod", idHab);
+                request.setAttribute("rutCliente", rut);
+
                 request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
 
             }
 
-        } catch (IOException | ServletException | NullPointerException e) {
+        } catch (IOException | ServletException | NullPointerException | EJBException e) {
 
             request.setAttribute("msgmodal", "ERROR: " + e);
 
@@ -320,20 +421,17 @@ public class Controller extends HttpServlet {
         Habitacion newHab = new Habitacion();
         TipoHabitacion th = new TipoHabitacion();
         String thId = request.getParameter("tipoHabitacion").trim();
-        
+
         if (thId.equals("")) {
             request.setAttribute("msg", "error al ingresar idTipoHabitacion");
             request.getRequestDispatcher("gestionHabitacion.jsp").forward(request, response);
-        }else{
-           int t = Integer.parseInt(thId);
-             th.setIdTipoHabitacion(t);
+        } else {
+            int t = Integer.parseInt(thId);
+            th.setIdTipoHabitacion(t);
         }
-       
-        
-        
-        
-        if (newHab != null || th.getIdTipoHabitacion()!= null) {
-            
+
+        if (newHab != null || th.getIdTipoHabitacion() != null) {
+
             newHab.setEstado(estado);
             newHab.setTipoHabitacionIdTipoHabitacion(th);
             servicio.insertar(newHab);
@@ -453,7 +551,7 @@ public class Controller extends HttpServlet {
 
         }
     }
-    /**
+
     private void addcli(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
 
@@ -462,31 +560,32 @@ public class Controller extends HttpServlet {
         String apellidoPaterno = request.getParameter("cliapellidoPaterno").trim();
         String apellidoMaterno = request.getParameter("cliapellidoMaterno").trim();
         String fnac = request.getParameter("clifechaNacimiento");
-     
+        String cantidad = request.getParameter("cantidad");
 
-        
-        if (servicio.buscarCliente(rutCliente)==null) {
+        if (servicio.buscarCliente(rutCliente) == null) {
 
-                Cliente newCli = new Cliente();
-                newCli.setRutCliente(rutCliente);
-                newCli.setApellidoPaterno(apellidoPaterno);
-                newCli.setApellidoMaterno(apellidoMaterno);
-                                
-               
-                
-                servicio.insertar(newCli);
-                request.setAttribute("msg2", "Usuario añadido exitosamente");
-                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
+            Cliente newCli = new Cliente();
+            newCli.setRutCliente(rutCliente);
+            newCli.setNombre(nombre);
+            newCli.setApellidoPaterno(apellidoPaterno);
+            newCli.setApellidoMaterno(apellidoMaterno);
 
-            } else {
-                request.setAttribute("msg2", "Usuario ya registrado");
-                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fn = sdf.parse(fnac);
+            newCli.setFechaNacimiento(fn);
 
-            }
+            servicio.insertar(newCli);
+            request.setAttribute("msgmodal", null);
+            request.setAttribute("rutCliente", rutCliente);
+            request.setAttribute("cantidad", cantidad);
+            request.setAttribute("msg", "Cliente añadido exitosamente");
+            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+
+        } else {
+            request.setAttribute("msg", "Cliente ya registrado");
+            request.getRequestDispatcher("asignarHabitacion.jsp").forward(request, response);
+
         }
-    
-    
-    **/
-    
+    }
 
 }

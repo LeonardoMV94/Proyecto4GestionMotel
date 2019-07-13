@@ -3,8 +3,22 @@
     Created on : 09-07-2019, 0:35:56
     Author     : Wilman
 --%>
+<%@page import="cl.entities.MetodoPago"%>
+<%@page import="cl.entities.Boleta"%>
+<%@page import="java.util.List"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="cl.modelo.ServicioLocal"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! ServicioLocal servicio;%>
+<%
+    InitialContext ctx = new InitialContext();
+    servicio = (ServicioLocal) ctx.lookup("java:global/Proyecto4GestionMotel1/Servicio!cl.modelo.ServicioLocal");
+    List<MetodoPago> listam = servicio.getMetodoPago();
+
+ 
+%>
+<c:set scope="page" var="listam" value="<%=listam%>"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,6 +53,7 @@
             %>
 
 
+           
 
             <div class="row valign-wrapper">
                 <div class="col s6 offset-s3">
@@ -47,7 +62,6 @@
                         <br>
 
                         <form action="control.do" method="POST">
-
 
                             <div class="input-field">
                                 <input id = "idHabitacion" type="text" name="idHabitacion" readonly="readonly" value="${cod}${codigoHab}">
@@ -58,7 +72,7 @@
 
                             <div class="col s10">  
                                 <div class="input-field">
-                                    <input id="rutCliente" type="text" name="rutCliente" data-length="10" value="${rutCliente}">
+                                    <input id="rutCliente" type="text" name="rutCliente" data-length="10"  value="${rutCliente}" placeholder="${rc}">
                                     <label for="rutCliente">RUT</label>
                                 </div>
                             </div>
@@ -94,6 +108,16 @@
                                 </select>
                                 <label>Cantidad de Horas</label>
                             </div>
+                            
+                            <div class="input-field">
+                                <select name="metodopago">
+                                    <c:forEach items="${listam}" var="m">
+                                    <option value="${m.idMetodoPago}">${m.descripcionMetodoPago}</option>
+                                     </c:forEach>
+                                </select>
+                                <label>Metodo de pago</label>
+                            </div>
+                            
 
                             <div class="card-action center-align">
                                 <c:if test="${not empty msgmodal}">
@@ -104,12 +128,18 @@
                                 </c:if>    
 
 
+                                <!-- 
+                                <button class="btn purple">
+                                    <a href="registroCompleto.jsp?codigoHab=${h.idHabitacion}&rutCliente=${rutCliente}&cantidad=${cantidad}" class="white-text">Asignar Habitacion</a>
 
-                                <button class="btn purple pulse" name = "bt" value="registro" type="submit">
-
-                                    Asignar Habitacion
                                 </button>
-
+                                -->
+                               
+                            <button class="btn purple white-text pulse" name="bt" value="registrar" type="submit">
+                                Ir a registro
+                            </button>
+                        
+                                
                             </div>
 
 

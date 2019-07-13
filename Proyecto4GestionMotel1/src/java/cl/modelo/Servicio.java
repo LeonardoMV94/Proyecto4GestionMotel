@@ -40,35 +40,28 @@ public class Servicio implements ServicioLocal {
         return em.find(Usuarios.class, rut);
     }
 
-   
-    
     @Override
-    public void editarUsuarios(String rutUsuario, String nombre, String apellidoPaterno, 
+    public void editarUsuarios(String rutUsuario, String nombre, String apellidoPaterno,
             String apellidoMaterno, String correo, String clave, String tipoUsuario) {
-       
-        Usuarios user = buscarUsuarios(rutUsuario);
-        if (user !=null) {
-            
-        user.setNombre(nombre);
-        user.setApellidoPaterno(apellidoPaterno);
-        user.setApellidoMaterno(apellidoMaterno);
-        user.setCorreo(correo);
-        user.setClave(clave);
-        user.setTipoUsuario(tipoUsuario);
-        
-        em.merge(user);
-        em.flush();
-        em.refresh(user);
-        }else{
-            user=null;
-        }
-  
-        
-        
-    }
 
-    
-    
+        Usuarios user = buscarUsuarios(rutUsuario);
+        if (user != null) {
+
+            user.setNombre(nombre);
+            user.setApellidoPaterno(apellidoPaterno);
+            user.setApellidoMaterno(apellidoMaterno);
+            user.setCorreo(correo);
+            user.setClave(clave);
+            user.setTipoUsuario(tipoUsuario);
+
+            em.merge(user);
+            em.flush();
+            em.refresh(user);
+        } else {
+            user = null;
+        }
+
+    }
 
     @Override
     public List<Usuarios> getUsuarios() {
@@ -127,17 +120,16 @@ public class Servicio implements ServicioLocal {
     //MODULO TIPO DE HABITACION
     @Override
     public void editarTipoHabitacion(int idTipoHabitacion, String descripcion, int precio) {
-       
+
         TipoHabitacion t = this.buscarTipoHabitacion(idTipoHabitacion);
-        
+
         t.setDescripcionHabitacion(descripcion);
         t.setPrecio(precio);
-        
-        
+
         em.merge(t);
         em.flush();
         em.refresh(t);
-        
+
     }
 
     @Override
@@ -152,19 +144,19 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public Boleta buscarBoleta(int idBoleta) {
-       return em.find(Boleta.class, idBoleta);
+        return em.find(Boleta.class, idBoleta);
     }
 
     @Override
-    public void editarBoleta(int idBoleta, int precioConIva,int idMetodoPago, MetodoPago metodoPagoIdMetodoPago) {
-        
-       Boleta b = this.buscarBoleta(idBoleta);
-        
+    public void editarBoleta(int idBoleta, int precioConIva, int idMetodoPago, MetodoPago metodoPagoIdMetodoPago) {
+
+        Boleta b = this.buscarBoleta(idBoleta);
+
         b.setPrecioConIva(precioConIva);
         MetodoPago mp = b.getMetodoPagoIdMetodoPago();
         mp.setIdMetodoPago(idMetodoPago);
         b.setMetodoPagoIdMetodoPago(mp);
-        
+
         em.merge(b);
         em.flush();
         em.refresh(b);
@@ -172,28 +164,28 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public List<Boleta> getBoletas() {
-         return em.createQuery("select b from Boleta b").getResultList();
+        return em.createQuery("select b from Boleta b").getResultList();
     }
 
     @Override
     public void insertar(Object o) {
-       em.persist(o);
+        em.persist(o);
     }
 
     @Override
     public void sincronizar(Object o) {
-      em.merge(o);
+        em.merge(o);
         em.flush();
     }
 
     @Override
     public void editarRegistro(int idRegistro, Date horaEntrada, Date horaSalida, Boleta boletaidboleta, Cliente clienterutcliente, Usuarios usuariosrutusuario, Habitacion habitacionidhabitacion) {
-       
+
     }
 
     @Override
-    public TipoHabitacion buscarRegistro(int idRegistro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RegistroVentas buscarRegistro(int idRegistro) {
+        return em.find(RegistroVentas.class, idRegistro);
     }
 
     @Override
@@ -208,23 +200,22 @@ public class Servicio implements ServicioLocal {
 
     @Override
     public void eliminarUsuario(String rut) {
-               
-       Usuarios p = em.find(Usuarios.class, rut); 
-        em.remove(p);                
-       
+
+        Usuarios p = em.find(Usuarios.class, rut);
+        em.remove(p);
+
         em.flush();
-        
-        
+
     }
+
     @Override
     public void eliminarHab(int idHab) {
-               
-       Habitacion h = em.find(Habitacion.class, idHab); 
-        em.remove(h);                
-       
+
+        Habitacion h = em.find(Habitacion.class, idHab);
+        em.remove(h);
+
         em.flush();
-        
-        
+
     }
 
     @Override
@@ -232,7 +223,18 @@ public class Servicio implements ServicioLocal {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
-    
+    @Override
+    public int ultimoIdRegistro() {
+        RegistroVentas r = new RegistroVentas();
+        
+        em.persist(r);
+        em.flush();
+        return r.getIdRegistro();
+    }
+
+    @Override
+    public List<MetodoPago> getMetodoPago() {
+       return em.createQuery("select m from MetodoPago m").getResultList();
+    }
+
 }

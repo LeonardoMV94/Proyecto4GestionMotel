@@ -40,11 +40,7 @@
             </div></li>
 
         <li><div class="divider"></div></li>
-        <li><a href="disponibilidad.jsp" class="white-text">Habitaciones</a></li>
-        <li><div class="divider"></div></li>
-        <li><a href="ingresarCliente.jsp" class="white-text">Clientes</a></li>
-        <li><div class="divider"></div></li>
-        <li><a href="asignarHabitacion.jsp" class="white-text">Asignar Habitacion</a></li>
+        <li><a href="disponibilidad.jsp" class="white-text">Check-in</a></li>
         <li><div class="divider"></div></li>
         <li><a href="pago.jsp" class="white-text">Boleta</a></li>
         <li><div class="divider"></div></li>

@@ -36,23 +36,45 @@
         <c:import url="menu.jsp"/>
 
 
+       
+        <%
+            
+            //trabjar los datos de asignar registro aca
+            //calcular fecha y hora actual
+
+            //calcular hora_termino sumando cantidadDeHoras
+
+        %>
+
+
         <div class="row valign-wrapper">
             <div class="col s6 offset-s3">
                 <div class="card-panel z-depth-4">
-                    <h3>Buscar Cliente</h3>
+                    <h3>Registro completo</h3>
                     <form action="control.do" method="POST">
 
+
+
                         <div class="input-field">
-                            <input id="rutCliente" type="text" name="rutCliente" data-length="10">
-                            <label for="rutCliente">Rut</label>
+                            <input id="rutUsuario" type="text" name="rutUsuario" value="${operador.rutUsuario}" readonly="readonly">
+                            <label for="rutUsuario">Rut Usuario</label>
+                        </div>        
+                        <div class="input-field">
+                            <input id="rutCliente" type="text" name="rutCliente" value="${rutcli}" readonly="readonly" >
+                            <label for="rutCliente">Rut Cliente</label>
                         </div>
-                        <div class="card-action">
-                            
-                            <button class="btn-floating purple white-text" name="bt" value="addcli" type="submit">
-                                <i class="material-icons">search</i>
-                            </button>
-                            
+                        <div class="input-field">
+                            <input id = "idHabitacion" type="text" name="idHabitacion" readonly="readonly" value="${cod}">
+                            <label for="idHabitacon">ID HABITACION</label>
                         </div>
+
+                        <div class="input-field">
+                            <input id = "cantidad" type="text" name="cantidad" readonly="readonly" value="${cantidad}">
+                            <label for="cantidad">Cantidad de horas</label>
+                        </div>
+
+
+
                         <c:if test="${not empty msg}">
                             <div>
                                 <div class="chip purple white-text">
@@ -62,25 +84,11 @@
                             </div>
                         </c:if>
 
-                        <div class="input-field">
-                            <input id="nombre" type="text" name="nombre">
-                            <label for="nombre">Nombre</label>
-                        </div>
-                        <div class="input-field">
-                            <input id="apellidoPaterno" type="text" name="apellidoPaterno">
-                            <label for="apellidoPaterno">Apellido Paterno</label>
-                        </div>
-                        <div class="input-field">
-                            <input id="apellidoMaterno" type="text" name="apellidoMaterno">
-                            <label for="apellidoMaterno">Apellido Materno</label>
-                        </div>              
-                        <div class="input-field ">
-                            <input id="fechaNacimiento" type="text" class="datepicker" name="fechaNacimiento">
-                            <label for="fechaNacimiento">Fecha de nacimiento</label>
-                        </div>
+
+
                         <div class="card-action right-align">
-                            <button class="btn purple white-text" name="bt" value="addcli" type="submit">
-                                Agregar
+                            <button class="btn purple white-text" name="bt" value="addReg" type="submit">
+                                Agregar Registro
                             </button>
                         </div>
                     </form>
