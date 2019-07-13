@@ -27,17 +27,16 @@
 
               
             <div class="row valign-wrapper">
-                <div class="col s3 offset-s4">
+                <div class="col s3 offset-s4 disabled">
                   
-                        <div class="card">
-                            <div class="card-content black-text">
+                        <div class="card disabled">
+                            <div class="card-content black-text disabled">
                                 <span class="card-title center-align">
                                     <b>Motel Ricardo Milos SPA</b>
-                                    <br>
-                                    <i class="material-icons medium">hotel</i>
+                                    
                                 </span>
                                 
-                                <table class="striped">
+                                <table class="bordered">
 
                                     <br>
 

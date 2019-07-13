@@ -5,6 +5,12 @@ import cl.modelo.ServicioLocal;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.servlet.ServletException;
@@ -25,7 +31,7 @@ public class Controller extends HttpServlet {
     private ServicioLocal servicio;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, EJBException {
+            throws ServletException, IOException, EJBException, ParseException {
 
         String bt = request.getParameter("bt");
         switch (bt) {
@@ -73,6 +79,10 @@ public class Controller extends HttpServlet {
             case "addpre":
                 this.addpre(request, response);
                 break;
+                
+            case "addcli":
+            //    this.addcli(request, response);
+                break;
 
         }
     }
@@ -89,7 +99,13 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (EJBException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -103,7 +119,13 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (EJBException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -431,5 +453,40 @@ public class Controller extends HttpServlet {
 
         }
     }
+    /**
+    private void addcli(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
+
+        String rutCliente = request.getParameter("clirutCliente").trim();
+        String nombre = request.getParameter("clinombre").trim();
+        String apellidoPaterno = request.getParameter("cliapellidoPaterno").trim();
+        String apellidoMaterno = request.getParameter("cliapellidoMaterno").trim();
+        String fnac = request.getParameter("clifechaNacimiento");
+     
+
+        
+        if (servicio.buscarCliente(rutCliente)==null) {
+
+                Cliente newCli = new Cliente();
+                newCli.setRutCliente(rutCliente);
+                newCli.setApellidoPaterno(apellidoPaterno);
+                newCli.setApellidoMaterno(apellidoMaterno);
+                                
+               
+                
+                servicio.insertar(newCli);
+                request.setAttribute("msg2", "Usuario añadido exitosamente");
+                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
+
+            } else {
+                request.setAttribute("msg2", "Usuario ya registrado");
+                request.getRequestDispatcher("gestionUsuario.jsp").forward(request, response);
+
+            }
+        }
+    
+    
+    **/
+    
 
 }

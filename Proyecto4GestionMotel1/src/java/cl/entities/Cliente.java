@@ -6,6 +6,7 @@
 package cl.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -53,9 +56,9 @@ public class Cliente implements Serializable {
     @Size(max = 45)
     @Column(name = "apellido_materno")
     private String apellidoMaterno;
-    @Size(max = 45)
     @Column(name = "fecha_nacimiento")
-    private String fechaNacimiento;
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienterutcliente")
     private List<RegistroVentas> registroVentasList;
 
@@ -98,11 +101,11 @@ public class Cliente implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

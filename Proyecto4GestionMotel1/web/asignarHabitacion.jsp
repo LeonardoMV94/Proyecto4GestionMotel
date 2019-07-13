@@ -128,25 +128,25 @@
                     <form action="control.do" method="POST">
 
                         <div class="input-field">
-                            <input id="rutCliente" type="text" name="rutCliente" data-length="10">
-                            <label for="rutCliente">Rut</label>
+                            <input id="clirutCliente" type="text" name="clirutCliente" data-length="10">
+                            <label for="clirutCliente">Rut</label>
                         </div>
 
                         <div class="input-field">
-                            <input id="nombre" type="text" name="nombre">
-                            <label for="nombre">Nombre</label>
+                            <input id="clinombre" type="text" name="clinombre">
+                            <label for="clinombre">Nombre</label>
                         </div>
                         <div class="input-field">
-                            <input id="apellidoPaterno" type="text" name="apellidoPaterno">
-                            <label for="apellidoPaterno">Apellido Paterno</label>
+                            <input id="cliapellidoPaterno" type="text" name="cliapellidoPaterno">
+                            <label for="cliapellidoPaterno">Apellido Paterno</label>
                         </div>
                         <div class="input-field">
-                            <input id="apellidoMaterno" type="text" name="apellidoMaterno">
-                            <label for="apellidoMaterno">Apellido Materno</label>
+                            <input id="cliapellidoMaterno" type="text" name="cliapellidoMaterno">
+                            <label for="cliapellidoMaterno">Apellido Materno</label>
                         </div>              
                         <div class="input-field ">
-                            <input id="fechaNacimiento" type="text" class="datepicker" name="fechaNacimiento">
-                            <label for="fechaNacimiento">Fecha de nacimiento</label>
+                            <input id="clifechaNacimiento" type="text" class="datepicker" name="clifechaNacimiento">
+                            <label for="clifechaNacimiento">Fecha de nacimiento</label>
                         </div>
                         <div class="card-action right-align">
                             <button class="btn purple white-text" name="bt" value="addcli" type="submit">
