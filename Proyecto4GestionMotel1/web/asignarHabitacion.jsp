@@ -85,7 +85,6 @@
 
                             <div class="input-field">
                                 <select name="cantidad">
-                                    <option value="0${cantidad}" disabled selected>Cantidad Horas</option>
                                     <option value="3">3 HORAS</option>
                                     <option value="6">6 HORAS</option>
                                     <option value="9">9 HORAS</option>
@@ -96,27 +95,19 @@
                                 <label>Cantidad de Horas</label>
                             </div>
 
-                            <div class="card-action left-align">
+                            <div class="card-action center-align">
                                 <c:if test="${not empty msgmodal}">
-                                    <div class="card-action left-align"> 
-                                        <button data-target="modal1" class="btn purple modal-trigger">Ingresar Cliente</button>
 
-                                    </div>
+                                    <button data-target="modal1" class="btn purple modal-trigger">
+                                        Ingresar Cliente
+                                    </button>
                                 </c:if>    
 
 
 
+                                <button class="btn purple pulse" name = "bt" value="registro" type="submit">
 
-                            </div>
-
-
-
-                            <div class="card-action right-align"> 
-
-
-                                <button class="btn purple" name = "bt" value="registro" type="submit">
-
-                                    Registrar
+                                    Asignar Habitacion
                                 </button>
 
                             </div>
@@ -133,7 +124,7 @@
             <div id="modal1" class="modal">
                 <div class="modal-content">
 
-                    <h3>Buscar Cliente</h3>
+                    <h3>Agregar Cliente al sistema</h3>
                     <form action="control.do" method="POST">
 
                         <div class="input-field">
@@ -159,7 +150,7 @@
                         </div>
                         <div class="card-action right-align">
                             <button class="btn purple white-text" name="bt" value="addcli" type="submit">
-                                Agregar
+                                Agregar Cliente
                             </button>
                         </div>
                     </form>
@@ -195,8 +186,16 @@
             });
         </script>
 
-
-
+        <script type="text/javascript">
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 68, // Creates a dropdown of 15 years to control year,
+                clear: 'Limpiar',
+                close: 'Ok',
+                closeOnSelect: false, // Close upon selecting a date,
+                format: 'yyyy-mm-dd'
+            });
+        </script>
     </body>
 </html>
 

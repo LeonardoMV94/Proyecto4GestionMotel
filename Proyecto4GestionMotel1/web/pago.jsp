@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <div id="imp1">
     <head>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -20,50 +21,54 @@
     <body class="black">
 
         <c:if test="${not empty operador}">
+          
             <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
+
+              
             <div class="row valign-wrapper">
-                <div class="col s6 offset-s3">
-                    <div class="card White">
-                        <div class="card-content black-text">
-                            <span class="card-title center-align"><b>Servicios Ricardo Milos SPA</b></span>
-                            <table class="striped">
-                                <tbody>
-                                     <tr>
-                                         <td>Folio Boleta   </td>
-                                     <tr>
-                                     <tr>
-                                         <td>Fecha  </td>
-                                     <tr>
-                                     <tr>
-                                         <td>N° Habitación  </td>
-                                     </tr>
-                                     <tr>
-                                         <td>Tipo Habitación  </td>
-                                     </tr>
-                                     <tr>
-                                         <td>N° Habitación  </td>
-                                     </tr>
-                                     <tr>
-                                         <td>Tarifa asociada  </td>
-                                     </tr>
-                                      <tr>
-                                         <td>TOTAL </td>
-                                     </tr>
-                                     
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-action center-align">
-                            <button class="btn purple white-text pulse" name="bt" value="imprimirBoleta" type="submit">
-                                Imprimir Boleta
-                            </button>
-                            <button class="btn purple white-text pulse" name="bt" value="generarNuevamente" type="submit">
-                                Generar Nuevamente
-                            </button>
+                <div class="col s3 offset-s4">
+                  
+                        <div class="card">
+                            <div class="card-content black-text">
+                                <span class="card-title center-align">
+                                    <b>Motel Ricardo Milos SPA</b>
+                                    <br>
+                                    <i class="material-icons medium">hotel</i>
+                                </span>
+                                
+                                <table class="striped">
+
+                                    <br>
+
+                                    <tr>
+                                        <th>Folio Boleta</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo Habitación </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TOTAL </td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+
+
+                            </div>
                         </div>
                     </div>
+
                 </div>
+            </div>
+            <div class="card-action center-align">
+                <button class="btn purple white-text pulse" type="button" onclick="javascript:imprim1(imp1);">Imprimir</button>
+
             </div>
 
 
@@ -95,8 +100,22 @@
 
 
         <script type="text/javascript">
-            $('.button-collapse').sideNav();
+                            $('.button-collapse').sideNav();
 
         </script>
+
+        <script>
+            function imprim1(imp1) {
+                var printContents = document.getElementById('imp1').innerHTML;
+                w = window.open();
+                w.document.write(printContents);
+                w.document.close(); // necessary for IE >= 10
+                w.focus(); // necessary for IE >= 10
+                w.print();
+                w.close();
+                return true;
+            }
+        </script>
+
     </body>
 </html>

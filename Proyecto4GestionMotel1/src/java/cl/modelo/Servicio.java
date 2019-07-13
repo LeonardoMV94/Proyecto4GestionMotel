@@ -40,23 +40,15 @@ public class Servicio implements ServicioLocal {
         return em.find(Usuarios.class, rut);
     }
 
-    @Override
-    public void editarUsuarios(String rut, String clave) {
-
-        //modificar parametros de entrada a metodo 
-        Usuarios user = buscarUsuarios(rut);
-        user.setClave(clave);
-        em.merge(user);
-        em.flush();
-        em.refresh(user);
-    }
+   
     
     @Override
     public void editarUsuarios(String rutUsuario, String nombre, String apellidoPaterno, 
             String apellidoMaterno, String correo, String clave, String tipoUsuario) {
        
         Usuarios user = buscarUsuarios(rutUsuario);
-        
+        if (user !=null) {
+            
         user.setNombre(nombre);
         user.setApellidoPaterno(apellidoPaterno);
         user.setApellidoMaterno(apellidoMaterno);
@@ -67,6 +59,11 @@ public class Servicio implements ServicioLocal {
         em.merge(user);
         em.flush();
         em.refresh(user);
+        }else{
+            user=null;
+        }
+  
+        
         
     }
 
@@ -130,7 +127,17 @@ public class Servicio implements ServicioLocal {
     //MODULO TIPO DE HABITACION
     @Override
     public void editarTipoHabitacion(int idTipoHabitacion, String descripcion, int precio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+        TipoHabitacion t = this.buscarTipoHabitacion(idTipoHabitacion);
+        
+        t.setDescripcionHabitacion(descripcion);
+        t.setPrecio(precio);
+        
+        
+        em.merge(t);
+        em.flush();
+        em.refresh(t);
+        
     }
 
     @Override

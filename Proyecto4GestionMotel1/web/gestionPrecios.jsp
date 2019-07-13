@@ -46,20 +46,12 @@
                         <form action="control.do" method="POST">
 
                             <div class="input-field">
-                                <input id="idTipoHabitacion" type="text" name="idTipoHabitacion">
-                                <label for="idTipoHabitacion">ID Habitacion</label>
-                            </div>
-                            <div class="input-field">
-                                <select name="descripcionHabitacion">
-                                    <option>Jacuzzi</option>
-                                    <option>Sin jacuzzi</option>
-                                    <option>Cama de agua</option>     
-                                </select>
-                                <label>Tipo de habitacion</label>
+                                <input id="descripcionHabitacion" type="text" name="descripcionHabitacion">
+                                <label for="descripcionHabitacion">Descripcion</label>
                             </div>
 
                             <div class="input-field">
-                                <input id="precio" type="text" name="precio">
+                                <input id="precio" type="number" name="precio">
                                 <label for="precio">Precio </label>
                             </div>
 
@@ -70,11 +62,21 @@
                                     Añadir
                                 </button>
                             </div>
+                        </form>
 
                     </div>
                 </div>
             </div>
             <br><br>
+            <c:if test="${not empty msg}">
+                <div>
+                    <div class="chip purple white-text">
+                        ${msg}
+                    </div>
+                </div>
+            </c:if>
+
+
 
             <div class="col s10 offset-s1">
                 <div class="card-panel z-depth-4">
@@ -84,7 +86,7 @@
                             <th>Tipo habitacion</th>
                             <th>Precio</th>
                             <th>Editar</th>
-                            
+
                         </tr>
 
                         <c:forEach items="${listat}" var="t">
@@ -93,14 +95,50 @@
                                 <td>${t.descripcionHabitacion}</td>
                                 <td>${t.precio}</td> 
                                 <td>
-                                    <a href="control.do?bt=editpre&idTipoHabitacion=${c.idTipoHabitacion}&descripcionHabitacion=${c.descripcionHabitacion}&precio=${c.precio}"
-                                       class="btn-floating blue"><i class="material-icons">edit</i>
-                                    </a> 
-                                   
+                                    <div class="card-action left-align"> 
+                                        <button data-target="modal${t.idTipoHabitacion}" class="btn-floating blue modal-trigger">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+
+                                    </div>
+
                                 </td>
-                                
+
 
                             </tr>
+
+                            <div id="modal${t.idTipoHabitacion}" class="modal">
+                                <div class="modal-content">
+                                    <h3>Editar precio</h3>
+                                    <form action="control.do" method="POST">
+
+                                        <div class="input-field">
+                                            <input id="midTipoHabitacion" type="text" name="midTipoHabitacion" value="${t.idTipoHabitacion}" readonly="readonly">
+                                            <label for="midTipoHabitacion">ID Habitacion</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <input id="mdescripcionHabitacion" type="text" name="mdescripcionHabitacion" value="${t.descripcionHabitacion}" readonly="readonly">
+                                            <label for="mdescripcionHabitacion">Descripcion </label>
+                                        </div>    
+
+                                        <div class="input-field">
+                                            <input id="mprecio" type="text" name="mprecio" value="${t.precio}">
+                                            <label for="mprecio">Precio </label>
+                                        </div>
+
+
+
+                                        <div class="card-action right-align">
+                                            <button class="btn" name="bt" value="editpre" type="submit">
+                                                editar
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>  
                         </c:forEach>
                     </table>
                     <br>
@@ -128,6 +166,12 @@
             $('.button-collapse').sideNav();
 
         </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.modal').modal();
+            });
+        </script>
+
 
     </body>
 </html>

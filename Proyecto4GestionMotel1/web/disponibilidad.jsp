@@ -44,7 +44,10 @@
             <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
 
-
+        <%
+            
+    
+            %>
 
 
             <h2 class="center-align white-text">Habitaciones</h2>

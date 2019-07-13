@@ -1,5 +1,5 @@
 
-sd<%@page import="cl.entities.Usuarios"%>
+<%@page import="cl.entities.Usuarios"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="cl.entities.Cliente"%>
@@ -26,8 +26,8 @@ sd<%@page import="cl.entities.Usuarios"%>
     </head>
 
     <body class="black">
-
         <c:if test="${not empty admin}">
+
             <c:import url="menulateral.jsp"/>
             <c:import url="menu.jsp"/>
 
@@ -35,7 +35,7 @@ sd<%@page import="cl.entities.Usuarios"%>
             <div class="row valign-wrapper">
                 <div class="col s6 offset-s3">
                     <div class="card-panel z-depth-4">
-                        <h3>Usuarios</h3>
+                        <h3>Ingresar nuevo usuario</h3>
                         <form action="control.do" method="POST">
 
                             <div class="input-field">
@@ -73,8 +73,8 @@ sd<%@page import="cl.entities.Usuarios"%>
 
                             <div class="input-field">
                                 <select name="tipoUsuario">
-                                    <option value="2">operador</option>
-                                    <option value="1">admin</option>
+                                    <option value="operador">Operador</option>
+                                    <option value="admin">Administrador</option>
                                 </select>
                                 <label>Tipo de Usuario</label>
                             </div>
@@ -85,9 +85,6 @@ sd<%@page import="cl.entities.Usuarios"%>
                                 </button>
                             </div>
 
-                            <td>
-
-                            </td>
 
                         </form>
 
@@ -95,14 +92,17 @@ sd<%@page import="cl.entities.Usuarios"%>
                     </div>
                 </div>
             </div>
-            <br> 
-            <div>
-                <div class="chip purple white-text">
-                    ${msg}
+            <br><br> 
+            <c:if test="${not empty msg2}">
+                <div>
+                    <div class="chip purple white-text">
+                        ${msg2}
+                    </div>
                 </div>
-            </div>
 
-            <br>
+            </c:if>
+
+
 
             <div class="col s10 offset-s1">
                 <div class="card-panel z-depth-4">
@@ -143,13 +143,7 @@ sd<%@page import="cl.entities.Usuarios"%>
                             <!-- Modal Structure -->
                             <div id="modal1-${u.rutUsuario}" class="modal">
                                 <div class="modal-content">
-                                    <c:if test="${not empty msg2}">
-                                        <div>
-                                            <div class="chip purple white-text">
-                                                ${msg2}
-                                            </div>
-                                        </div>
-                                    </c:if>
+
                                     <h3>Editar Usuario</h3>
                                     <form action="control.do" method="POST">
 
@@ -188,7 +182,6 @@ sd<%@page import="cl.entities.Usuarios"%>
 
                                         <div class="input-field">
                                             <select name="tipoUsuario">
-                                                <option value="" disabled selected>Seleccione tipo de usuario</option>
                                                 <option value="operador">operador</option>
                                                 <option value="admin">admin</option>
                                             </select>
@@ -196,7 +189,7 @@ sd<%@page import="cl.entities.Usuarios"%>
                                         </div>
 
                                         <div class="card-action right-align">
-                                            <button class="btn" name="bt" value="edituser2" type="submit">
+                                            <button class="btn purple" name="bt" value="edituser" type="submit">
                                                 Editar
                                             </button>
                                         </div>
@@ -204,7 +197,14 @@ sd<%@page import="cl.entities.Usuarios"%>
 
 
                                     </form>
+                                    <c:if test="${not empty msgm}">
+                                        <div>
+                                            <div class="chip purple white-text">
+                                                ${msgm}
+                                            </div>
+                                        </div>
 
+                                    </c:if>
                                 </div>
 
                             </div>

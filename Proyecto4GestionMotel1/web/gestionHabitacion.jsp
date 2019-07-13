@@ -43,7 +43,7 @@
             <c:import url="menu.jsp"/>
 
 
-            <div class="row valign-wrapper">
+            <div class="row">
                 <div class="col s6 offset-s3">
                     <div class="card-panel z-depth-4">
                         <h3>Crear Habitación </h3>
@@ -78,15 +78,6 @@
                                 </button>
                             </div>
 
-
-
-
-
-
-
-
-
-
                         </form>
                         <c:if test="${not empty msg}">
                             <div>
@@ -100,8 +91,17 @@
                     </div>
                 </div>
             </div>
-            <br><br>
+            <br>
 
+            <c:if test="${not empty msg2}">
+                            <div>
+                                <div class="chip purple white-text">
+                                    ${msg2}
+                                </div>
+                            </div>
+                        </c:if>
+            
+            
             <div class="col s10 offset-s1">
                 <div class="card-panel z-depth-4">
                     <table class="bordered">
@@ -135,8 +135,8 @@
                                 <td>${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}</td>
                                 <td>$${h.tipoHabitacionIdTipoHabitacion.precio} x 3 HRS</td>
                                 <td>
-
-                                    <a href="control.do?bt=editarHabitacion&idHabitacion={${h.idHabitacion}}&tipoHabitacionIdTipoHabitacion=${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}&estado=${h.estado}"
+                                    <!--cambiar por modal-->
+                                    <a href="control.do?bt=editarHabitacion&idHabitacion=${h.idHabitacion}&tipoHabitacionIdTipoHabitacion=${h.tipoHabitacionIdTipoHabitacion.descripcionHabitacion}&estado=${h.estado}"
                                        class="btn-floating blue">
                                         <i class="material-icons">edit</i>
                                     </a> 
@@ -153,9 +153,13 @@
                                 </td>
 
                             </tr>
+                            
+                            
+                            
                         </c:forEach>
                     </table>
-                    <br>
+                    </div>
+            </div>
 
                 </c:if>
 
@@ -169,9 +173,7 @@
                     $('.button-collapse').sideNav();
 
                 </script>
-                <!--Import jQuery before materialize.js-->
-                <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-                <script type="text/javascript" src="js/materialize.min.js"></script>
+               
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $('select').material_select();
